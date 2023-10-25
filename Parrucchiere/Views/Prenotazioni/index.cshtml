@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Parrucchiere.Models.Prenotazioni>
+@{
+    ViewBag.Title = "index";
+}
+
+
+
+<link href="~/Content/Lista.css" rel="stylesheet" />
+
+<h2>Elenco Prenotazioni</h2>
+<table class="center-table">
+    <tr>
+        <th>Data</th>
+        <th>Servizio</th>
+        <th>Stato</th>
+    </tr>
+    @foreach (var p in Model)
+    {
+        <tr>
+            <td>@p.Data</td>
+            <td>@p.FkServizi</td>
+            <td>
+                @if (p.Fine < DateTime.Now)
+                {
+                    <span class="prenotazione-passata">Prenotazione passata</span>
+                }
+                else
+                {
+                    <a href="@Url.Action("Edit", new { id = p.IdPrenotazione })" class="btn btn-warning">Modifica</a>
+                }
+            </td>
+        </tr>
+    }
+</table>

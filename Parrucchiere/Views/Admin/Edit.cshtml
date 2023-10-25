@@ -1,0 +1,46 @@
+﻿@model Parrucchiere.Models.Prenotazioni
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Prenotazioni</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.IdPrenotazione)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Data, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Data, new { htmlAttributes = new { @class = "form-control", type = "datetime-local" } })
+                @Html.ValidationMessageFor(model => model.Data, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group mt-4 mb-3">
+            <label for="FkServizi" class="control-label col-md-2 w-100">Seleziona il servizio desiderato:</label>
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.FkServizi, (IEnumerable<SelectListItem>)ViewBag.TipoOptions, "Servizi", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.FkServizi, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<a href="@Url.Action("Delete", new { id = Model.IdPrenotazione })" class="btn btn-danger">Elimina</a>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

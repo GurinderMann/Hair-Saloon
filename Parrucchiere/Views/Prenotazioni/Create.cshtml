@@ -1,0 +1,146 @@
+﻿@model Parrucchiere.Models.Prenotazioni
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<link href="~/Content/Calendar.css" rel="stylesheet" />
+
+
+<div class="container1">
+    <div class="left">
+        <div class="calendar">
+            <div class="month">
+                <i class="bi bi-arrow-left-circle-fill prev text-primary"></i>
+                <div class="date">december 2015</div>
+                <i class="bi bi-arrow-right-circle-fill next text-primary"></i>
+            </div>
+            <div class="weekdays">
+                <div>Sun</div>
+                <div>Mon</div>
+                <div>Tue</div>
+                <div>Wed</div>
+                <div>Thu</div>
+                <div>Fri</div>
+                <div>Sat</div>
+            </div>
+            <div class="days"></div>
+            <div class="goto-today">
+                <div class="goto">
+                    <input type="text" placeholder="mm/yyyy" class="date-input" />
+                    <button class="goto-btn">Go</button>
+                </div>
+                <button class="today-btn">Today</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="right ">
+        <div class="today-date ">
+            <div class="event-day">wed</div>
+            <div class="event-date">12th december 2022</div>
+        </div>
+        <h1 class="mx-5" id="Chiusura"></h1>
+
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+
+
+    <div class="form-horizontal  mx-5" id="crea">
+
+        <hr />
+        <h3>Servizi offerti</h3>
+
+        <ul>
+            @foreach (var tipoOption in ViewBag.TipoOptions as List<SelectListItem>)
+            {
+
+                <li>
+
+                    <strong>@tipoOption.Text </strong>
+                </li>
+            }
+        </ul>
+        <hr />
+        <h4 class="mb-3">Prenotazione appuntamento</h4>
+
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group  ">
+            <label for="Ore" class="control-label col-md-2 w-100">Seleziona un orario:</label>
+            <div class="col-md-10">
+                <select id="Ore" class="form-control ">
+                    <option value="09:00">09:00</option>
+                    <option value="09:30">09:30</option>
+                    <option value="10:00">10:00</option>
+                    <option value="10:30">10:30</option>
+                    <option value="11:00">11:00</option>
+                    <option value="11:30">11:30</option>
+                    <option value="12:00">12:00</option>
+                    <option value="12:30">12:30</option>
+                    <option value="14:00">14:00</option>
+                    <option value="14:30">14:30</option>
+                    <option value="15:00">15:00</option>
+                    <option value="15:30">15:30</option>
+                    <option value="16:00">16:00</option>
+                    <option value="16:30">16:30</option>
+                    <option value="17:00">17:00</option>
+                    <option value="17:30">17:30</option>
+
+                    <option value="18:00">18:00</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group ">
+
+            <div>
+                <div class="input-group">
+                    @Html.EditorFor(model => model.Data, new { htmlAttributes = new { @class = "form-control d-none", id = "Data", type = "datetime-local" } })
+                </div>
+                @Html.ValidationMessageFor(model => model.Data, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group mt-4 mb-3">
+            <label for="Servizi" class="control-label col-md-2 w-100 ">Seleziona il servizio desiderato:</label>
+            <div>
+                @Html.DropDownListFor(model => model.FkServizi, (IEnumerable<SelectListItem>)ViewBag.TipoOptions, "Servizi", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.FkServizi, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Prenota" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+          
+        }
+
+
+    </div>
+ 
+  
+</div>
+
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/Script.js"></script>
+
+}

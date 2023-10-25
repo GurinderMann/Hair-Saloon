@@ -1,0 +1,98 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<link href="~/Content/Calendar.css" rel="stylesheet" />
+
+<div class="container1">
+    <div class="left">
+        <div class="calendar">
+            <div class="month">
+                <i class="fas fa-angle-left prev"></i>
+                <div class="date">december 2015</div>
+                <i class="fas fa-angle-right next"></i>
+            </div>
+            <div class="weekdays">
+                <div>Sun</div>
+                <div>Mon</div>
+                <div>Tue</div>
+                <div>Wed</div>
+                <div>Thu</div>
+                <div>Fri</div>
+                <div>Sat</div>
+            </div>
+            <div class="days"></div>
+            <div class="goto-today">
+                <div class="goto">
+                    <input type="text" placeholder="mm/yyyy" class="date-input" />
+                    <button class="goto-btn">Go</button>
+                </div>
+                <button class="today-btn">Today</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="right mx-5">
+        <div class="today-date ">
+            <div class="event-day">wed</div>
+            <div class="event-date">12th december 2022</div>
+            <button id="cercaVendite" class="btn btn-primary   mx-auto"><i class="bi bi-search"></i></button>
+        </div>
+        <hr />
+        <input type="date" id="Data" class="d-none" />
+     
+        <div id="Appuntamenti">
+            <ul id="appuntamentiList">
+            </ul>
+     
+        </div>
+
+
+
+    </div>
+
+  
+</div>
+
+
+
+
+
+
+
+
+@section scripts
+{
+    <script src="~/Scripts/Calendar.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#cercaVendite').click(function () {
+                var dataAppuntamento = $('#Data').val();
+                $.ajax({
+                    type: "POST",
+                    url: "/Admin/Prenotazioni",
+                    data: { data: dataAppuntamento },
+                    success: function (data) {
+
+                        $('#appuntamentiList').empty();
+                        
+
+                        // Aggiungi gli appuntamenti dal database
+                        data.slice(0, -1).forEach(function (appuntamento) {
+                            var listItem = '<a href="/Admin/Edit/' + appuntamento.AppuntamentoId + '" class="list-item-link">';
+                            listItem += '<div class="fs-5">' + appuntamento.DataAppuntamento + ' - ' + appuntamento.Tipo + ' <br />' +  appuntamento.NomeUtente + '</div>';
+                            listItem += '</a>';
+                            $('#appuntamentiList').append(listItem);
+                        });
+
+                        // Aggiungi il totale incassato
+                        var totaleIncassato = data[data.length - 1].TotaleIncassato;
+                        var totaleIncassatoHtml = ' <hr /> <strong class="fs-4">Guadagno stimato: ' + totaleIncassato + ' € ' +  ' </strong>';
+                        $('#appuntamentiList').append(totaleIncassatoHtml);
+                    }
+                });
+            });
+        });
+    </script>
+}
+

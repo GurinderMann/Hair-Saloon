@@ -1,0 +1,33 @@
+﻿
+h2 {
+    font-size: 24px;
+    text-align: center;
+}
+
+.center-table {
+    margin: 0 auto;
+}
+
+table {
+    width: 60%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #023047;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.prenotazione-passata {
+    color: #FF0000;
+}
