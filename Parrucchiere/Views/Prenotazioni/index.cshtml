@@ -1,14 +1,13 @@
-﻿@model IEnumerable<Parrucchiere.Models.Prenotazioni>
+﻿@model IEnumerable<Parrucchiere.Models.PrenotazioneConNomeServizio>
+
 @{
     ViewBag.Title = "index";
 }
 
-
-
 <link href="~/Content/Lista.css" rel="stylesheet" />
 
 <h2>Elenco Prenotazioni</h2>
-<table class="center-table">
+<table class="center-table ">
     <tr>
         <th>Data</th>
         <th>Servizio</th>
@@ -17,16 +16,16 @@
     @foreach (var p in Model)
     {
         <tr>
-            <td>@p.Data</td>
-            <td>@p.FkServizi</td>
+            <td>@p.Prenotazione.Data</td>
+            <td>@p.NomeServizio</td>
             <td>
-                @if (p.Fine < DateTime.Now)
+                @if (@p.Prenotazione.Fine< DateTime.Now)
                 {
                     <span class="prenotazione-passata">Prenotazione passata</span>
                 }
                 else
                 {
-                    <a href="@Url.Action("Edit", new { id = p.IdPrenotazione })" class="btn btn-warning">Modifica</a>
+                    <a href="@Url.Action("Edit", new { id = p.Prenotazione.IdPrenotazione })" class="btn btn-warning">Modifica</a>
                 }
             </td>
         </tr>

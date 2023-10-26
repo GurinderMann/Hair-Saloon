@@ -13,7 +13,18 @@ namespace Parrucchiere.Controllers
         // GET: Recensioni
         public ActionResult Index()
         {
-            return View(db.Recensioni.ToList());
+            var recensioni = db.Recensioni.ToList();
+
+            // Recupera i dati dell'utente per ciascuna recensione
+            var recensioniConUtente = recensioni.Select(r => new Review
+            {
+                Recensione = r,
+                NomeUtente = db.Utenti.FirstOrDefault(u => u.IdUtente == r.FkUtente)?.Nome
+            }).ToList();
+
+            return View(recensioniConUtente);
         }
+
+
     }
 }

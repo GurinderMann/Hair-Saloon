@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Parrucchiere.Models.Recensioni>
+﻿@model IEnumerable<Parrucchiere.Models.Review>
 @{
     ViewBag.Title = "Index";
 }
@@ -11,21 +11,24 @@
         <div class="col-md-12 d-flex justify-content-center align-items-center ">
             <div class="card mb-4 w-50">
                 <div class="card-body">
-                    <h5 class="card-title">@r.FkUtente</h5>
-                    <div class="star-rating">
-                        @for (int i = 0; i < 5; i++)
-                        {
-                            if (i < r.Valutazione)
+                    <div class="d-flex justify-content-between">
+                        <h4 class="card-title">@r.NomeUtente</h4>
+                        <div class="star-rating">
+                            @for (int i = 0; i < 5; i++)
                             {
-                                <i class="bi bi-star-fill text-success fs-3"></i>
+                                if (i < r.Recensione.Valutazione)
+                                {
+                                    <i class="bi bi-star-fill text-success fs-3"></i>
+                                }
+                                else
+                                {
+                                    <i class="bi bi-star fs-3"></i>
+                                }
                             }
-                            else
-                            {
-                                <i class="bi bi-star fs-3"></i>
-                            }
-                        }
+                        </div>
                     </div>
-                    <p class="card-text">@r.Testo</p>
+
+                    <h5 class="card-text text-secondary">@r.Recensione.Testo</h5>
                 </div>
             </div>
         </div>

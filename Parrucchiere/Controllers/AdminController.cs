@@ -67,8 +67,20 @@ namespace Parrucchiere.Controllers
 
         public ActionResult Lista()
         {
-            var a = db.Prenotazioni.ToList();
-            return View(a);
+            
+
+          
+            var prenotazioni = db.Prenotazioni
+              
+                .Select(p => new PrenotazioneConNomeServizio
+                {
+                    Prenotazione = p,
+                    NomeServizio = p.Servizi.Tipo,
+                    Username = p.Utenti.Nome
+                })
+                .ToList();
+
+            return View(prenotazioni);
         }
 
         public ActionResult Edit(int id)

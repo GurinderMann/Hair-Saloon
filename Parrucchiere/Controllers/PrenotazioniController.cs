@@ -13,13 +13,23 @@ namespace Parrucchiere.Controllers
     {
      
         ModelDbContext db = new ModelDbContext();
-        public ActionResult index()
+        public ActionResult Index()
         {
             int? userId = Session["UserId"] as int?;
-            var p = db.Prenotazioni.Where(a=> a.FkUtente == userId).ToList();
-          
-            return View(p);
+
+            // Recupera le prenotazioni dell'utente con il nome del servizio associato
+            var prenotazioni = db.Prenotazioni
+                .Where(a => a.FkUtente == userId)
+                .Select(p => new PrenotazioneConNomeServizio
+                {
+                    Prenotazione = p,
+                    NomeServizio = p.Servizi.Tipo
+                })
+                .ToList();
+
+            return View(prenotazioni);
         }
+
         public ActionResult Create()
         {
             var servizi = db.Servizi.ToList()

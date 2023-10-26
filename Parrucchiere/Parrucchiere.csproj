@@ -138,8 +138,10 @@
     </Compile>
     <Compile Include="Models\Domande.cs" />
     <Compile Include="Models\ModelDbContext.cs" />
+    <Compile Include="Models\PrenotazioneConNomeServizio.cs" />
     <Compile Include="Models\Prenotazioni.cs" />
     <Compile Include="Models\Recensioni.cs" />
+    <Compile Include="Models\Review.cs" />
     <Compile Include="Models\Servizi.cs" />
     <Compile Include="Models\SiteRole.cs" />
     <Compile Include="Models\Utenti.cs" />
@@ -304,10 +306,10 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\Prenotazioni.cshtml" />
     <Content Include="Views\Admin\Edit.cshtml" />
-    <Content Include="Views\Prenotazioni\index.cshtml" />
     <Content Include="Views\Prenotazioni\Edit.cshtml" />
     <Content Include="Views\Admin\Lista.cshtml" />
     <Content Include="Views\Recensioni\Index.cshtml" />
+    <Content Include="Views\Prenotazioni\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
