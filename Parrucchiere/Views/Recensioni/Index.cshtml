@@ -3,34 +3,36 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+    <div class="container"> 
+        <div class="p-4  w-75 mx-auto" style=" ">
+            <h2 class="text-center">Cosa dicono su di noi</h2>
+            <h3 class="text-center">
+                <a href="@Url.Action("Create")">Dicci anche tu la tua</a>
+            </h3>
 
-<div class="row">
-    @foreach (var r in Model)
-    {
-        <div class="col-md-12 d-flex justify-content-center align-items-center ">
-            <div class="card mb-4 w-50">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                        <h4 class="card-title">@r.NomeUtente</h4>
-                        <div class="star-rating">
-                            @for (int i = 0; i < 5; i++)
-                            {
-                                if (i < r.Recensione.Valutazione)
+            @foreach (var r in Model)
+            {
+                <div class="card mb-4 w-50 mx-auto mt-4">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <h4 class="card-title">@r.NomeUtente</h4>
+                            <div class="star-rating">
+                                @for (int i = 0; i < 5; i++)
                                 {
-                                    <i class="bi bi-star-fill text-success fs-3"></i>
+                                    if (i < r.Recensione.Valutazione)
+                                    {
+                                        <i class="bi bi-star-fill text-success fs-3"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="bi bi-star fs-3"></i>
+                                    }
                                 }
-                                else
-                                {
-                                    <i class="bi bi-star fs-3"></i>
-                                }
-                            }
+                            </div>
                         </div>
+                        <p class="card-text text-secondary">@r.Recensione.Testo</p>
                     </div>
-
-                    <h5 class="card-text text-secondary">@r.Recensione.Testo</h5>
                 </div>
-            </div>
+            }
         </div>
-    }
-</div>
+    </div>

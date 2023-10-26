@@ -25,6 +25,25 @@ namespace Parrucchiere.Controllers
             return View(recensioniConUtente);
         }
 
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+        public ActionResult Create(Recensioni r)
+        {
+            int? userId = Session["UserId"] as int?;
+            r.FkUtente = userId.Value;
+            db.Recensioni.Add(r);
+            db.SaveChanges();
+
+
+            return RedirectToAction("Index");
+        }
+
 
     }
 }

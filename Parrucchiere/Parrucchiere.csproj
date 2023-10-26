@@ -142,8 +142,10 @@
     <Compile Include="Models\Prenotazioni.cs" />
     <Compile Include="Models\Recensioni.cs" />
     <Compile Include="Models\Review.cs" />
+    <Compile Include="Models\Risposte.cs" />
     <Compile Include="Models\Servizi.cs" />
     <Compile Include="Models\SiteRole.cs" />
+    <Compile Include="Models\sysdiagrams.cs" />
     <Compile Include="Models\Utenti.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -243,6 +245,7 @@
     <Content Include="Content\jQuery-provider.js" />
     <Content Include="Content\jQuery-provider.min.js" />
     <Content Include="Content\Login.css" />
+    <Content Include="Content\Review.css" />
     <Content Include="Content\tempus-dominus.css" />
     <Content Include="Content\tempus-dominus.esm.js" />
     <Content Include="Content\tempus-dominus.esm.min.js" />
@@ -310,6 +313,7 @@
     <Content Include="Views\Admin\Lista.cshtml" />
     <Content Include="Views\Recensioni\Index.cshtml" />
     <Content Include="Views\Prenotazioni\Index.cshtml" />
+    <Content Include="Views\Recensioni\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

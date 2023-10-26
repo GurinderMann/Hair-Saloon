@@ -15,6 +15,7 @@ namespace Parrucchiere.Models
             Domande = new HashSet<Domande>();
             Prenotazioni = new HashSet<Prenotazioni>();
             Recensioni = new HashSet<Recensioni>();
+            Risposte = new HashSet<Risposte>();
         }
 
         [Key]
@@ -55,5 +56,8 @@ namespace Parrucchiere.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Recensioni> Recensioni { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Risposte> Risposte { get; set; }
     }
 }
