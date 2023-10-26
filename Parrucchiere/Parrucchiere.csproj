@@ -129,6 +129,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\DomandeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PrenotazioniController.cs" />
@@ -140,6 +141,7 @@
     <Compile Include="Models\ModelDbContext.cs" />
     <Compile Include="Models\PrenotazioneConNomeServizio.cs" />
     <Compile Include="Models\Prenotazioni.cs" />
+    <Compile Include="Models\QA.cs" />
     <Compile Include="Models\Recensioni.cs" />
     <Compile Include="Models\Review.cs" />
     <Compile Include="Models\Risposte.cs" />
@@ -242,9 +244,11 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Calendar.css" />
+    <Content Include="Content\FAQ.css" />
     <Content Include="Content\jQuery-provider.js" />
     <Content Include="Content\jQuery-provider.min.js" />
     <Content Include="Content\Login.css" />
+    <Content Include="Content\Rev.css" />
     <Content Include="Content\Review.css" />
     <Content Include="Content\tempus-dominus.css" />
     <Content Include="Content\tempus-dominus.esm.js" />
@@ -314,6 +318,8 @@
     <Content Include="Views\Recensioni\Index.cshtml" />
     <Content Include="Views\Prenotazioni\Index.cshtml" />
     <Content Include="Views\Recensioni\Create.cshtml" />
+    <Content Include="Views\Domande\Index.cshtml" />
+    <Content Include="Views\Recensioni\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

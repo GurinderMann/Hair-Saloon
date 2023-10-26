@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace Parrucchiere.Controllers
 {
@@ -19,7 +20,9 @@ namespace Parrucchiere.Controllers
             var recensioniConUtente = recensioni.Select(r => new Review
             {
                 Recensione = r,
-                NomeUtente = db.Utenti.FirstOrDefault(u => u.IdUtente == r.FkUtente)?.Nome
+                Id = r.IdRecensione,
+                NomeUtente = db.Utenti.FirstOrDefault(u => u.IdUtente == r.FkUtente)?.Nome,
+                Username = db.Utenti.FirstOrDefault(u => u.IdUtente == r.FkUtente)?.Username
             }).ToList();
 
             return View(recensioniConUtente);
@@ -41,6 +44,41 @@ namespace Parrucchiere.Controllers
             db.SaveChanges();
 
 
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Edit (int id)
+        {
+            var r = db.Recensioni.Find(id);
+            return View(r);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+        public ActionResult Edit (Recensioni r, int id ) 
+        {
+            var rec = db.Recensioni.Find(id);
+
+            if (rec != null)
+            {
+                rec.Valutazione = r.Valutazione;
+                rec.Testo = r.Testo;
+                db.Entry(rec).State= EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(r);
+           
+
+
+        }
+
+        public ActionResult Delete(int id)
+        {
+            Recensioni r = db.Recensioni.Find(id);
+            db.Recensioni.Remove(r);
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
 

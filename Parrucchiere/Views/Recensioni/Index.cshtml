@@ -3,19 +3,44 @@
     ViewBag.Title = "Index";
 }
 
-    <div class="container"> 
-        <div class="p-4  w-75 mx-auto" style=" ">
-            <h2 class="text-center">Cosa dicono su di noi</h2>
-            <h3 class="text-center">
-                <a href="@Url.Action("Create")">Dicci anche tu la tua</a>
-            </h3>
 
-            @foreach (var r in Model)
-            {
-                <div class="card mb-4 w-50 mx-auto mt-4">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <h4 class="card-title">@r.NomeUtente</h4>
+<link href="~/Content/Rev.css" rel="stylesheet" />
+
+<div id="faq" class="faq-body">
+    <div class="faq-header">
+        <h3 class="faq-title">Recensioni</h3>
+        <div class="seperator ms-1"></div>
+        <div class="d-flex justify-content-end">
+    
+          
+            <a href="@Url.Action("Create")" class="button text-dark type--C">
+                <div class="button__line"></div>
+                <div class="button__line"></div>
+                <span class="button__text">Valutaci ora</span>
+             
+            </a>
+        </div>
+    </div>
+
+    <div class="faq-list">
+        @foreach (var r in Model)
+        {
+            <div>
+                <details open>
+                    <summary>
+                        <div>
+                            <div class="d-flex justify-content-between">
+                                <h4 class="card-title">@r.NomeUtente</h4>
+                                @if (User.Identity.Name == r.Username)
+                                {
+                                    <div>
+                                        <a href="@Url.Action("Edit", new { id = r.Id })" class="mx-2 text-dark"><i class="bi bi-pencil-fill"></i></a>
+                                        <a data-bs-toggle="modal" data-bs-target="#exampleModal " class="text-danger">
+                                            <i class="bi bi-trash-fill"></i>
+                                        </a>
+                                    </div>
+                                }
+                            </div>
                             <div class="star-rating">
                                 @for (int i = 0; i < 5; i++)
                                 {
@@ -30,9 +55,31 @@
                                 }
                             </div>
                         </div>
-                        <p class="card-text text-secondary">@r.Recensione.Testo</p>
+                    </summary>
+                    <p class="faq-content"> @r.Recensione.Testo </p>
+                </details>
+            </div>
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+
+                        <div class="modal-body">
+                            <h4>  <strong> Sei sicuro di voler eliminare il tuo post? </strong>    </h4>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                            <a href="@Url.Action("Delete", new { id = r.Id })" class="btn btn-danger">Elimina</a>
+                        </div>
                     </div>
                 </div>
-            }
-        </div>
+            </div>
+        }
     </div>
+</div>
+
+
+
+
+
+
