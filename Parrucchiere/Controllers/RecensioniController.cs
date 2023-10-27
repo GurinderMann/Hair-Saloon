@@ -28,18 +28,22 @@ namespace Parrucchiere.Controllers
             return View(recensioniConUtente);
         }
 
+
+        //Get per la create delle recensioni
         public ActionResult Create()
         {
             return View();
         }
 
+
+        //Post per la create delle recensioni
         [HttpPost]
         [ValidateAntiForgeryToken]
-
         public ActionResult Create(Recensioni r)
         {
             int? userId = Session["UserId"] as int?;
             r.FkUtente = userId.Value;
+         
             db.Recensioni.Add(r);
             db.SaveChanges();
 
@@ -47,15 +51,18 @@ namespace Parrucchiere.Controllers
             return RedirectToAction("Index");
         }
 
+
+        //Get per l'edit della recensione
         public ActionResult Edit (int id)
         {
             var r = db.Recensioni.Find(id);
             return View(r);
         }
 
+
+        //Post per l'edit della recensione
         [HttpPost]
         [ValidateAntiForgeryToken]
-
         public ActionResult Edit (Recensioni r, int id ) 
         {
             var rec = db.Recensioni.Find(id);
@@ -74,6 +81,7 @@ namespace Parrucchiere.Controllers
 
         }
 
+        //Get per la delete della recensione che parte direttamente al click
         public ActionResult Delete(int id)
         {
             Recensioni r = db.Recensioni.Find(id);

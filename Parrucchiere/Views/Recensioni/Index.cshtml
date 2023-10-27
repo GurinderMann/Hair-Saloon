@@ -11,13 +11,13 @@
         <h3 class="faq-title">Recensioni</h3>
         <div class="seperator ms-1"></div>
         <div class="d-flex justify-content-end">
-    
-          
-            <a href="@Url.Action("Create")" class="button text-dark type--C">
+
+
+            <a  href="@Url.Action("Create")" class="button text-dark type--C">
                 <div class="button__line"></div>
                 <div class="button__line"></div>
                 <span class="button__text">Valutaci ora</span>
-             
+
             </a>
         </div>
     </div>
@@ -35,7 +35,7 @@
                                 {
                                     <div>
                                         <a href="@Url.Action("Edit", new { id = r.Id })" class="mx-2 text-dark"><i class="bi bi-pencil-fill"></i></a>
-                                        <a data-bs-toggle="modal" data-bs-target="#exampleModal " class="text-danger">
+                                        <a data-bs-toggle="modal" data-bs-target="#exampleModal-@r.Id" class="text-danger">
                                             <i class="bi bi-trash-fill"></i>
                                         </a>
                                     </div>
@@ -59,7 +59,7 @@
                     <p class="faq-content"> @r.Recensione.Testo </p>
                 </details>
             </div>
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="exampleModal-@r.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-sm">
                     <div class="modal-content">
 
@@ -76,8 +76,7 @@
             </div>
         }
     </div>
-</div>
-
+   </div>
 
 
 

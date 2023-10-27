@@ -245,6 +245,7 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Calendar.css" />
     <Content Include="Content\FAQ.css" />
+    <Content Include="Content\img\5572897.jpg" />
     <Content Include="Content\jQuery-provider.js" />
     <Content Include="Content\jQuery-provider.min.js" />
     <Content Include="Content\Login.css" />
@@ -317,9 +318,9 @@
     <Content Include="Views\Admin\Lista.cshtml" />
     <Content Include="Views\Recensioni\Index.cshtml" />
     <Content Include="Views\Prenotazioni\Index.cshtml" />
-    <Content Include="Views\Recensioni\Create.cshtml" />
     <Content Include="Views\Domande\Index.cshtml" />
     <Content Include="Views\Recensioni\Edit.cshtml" />
+    <Content Include="Views\Recensioni\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
