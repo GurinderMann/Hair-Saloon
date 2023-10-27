@@ -17,24 +17,33 @@ namespace Parrucchiere.Controllers
         {
             var domande = db.Domande.ToList();
 
-            //Raggruppamento in base a id domanda
-            domande.GroupBy(d => d.IdDomanda);
-
-            //Creo una nuova lista basata sulla mia classe  QA
+            // Creo una nuova lista basata sulla mia classe QA
             var domandecomp = new List<QA>();
 
             foreach (var domanda in domande)
             {
-                
                 var utenteDomanda = db.Utenti.FirstOrDefault(u => u.IdUtente == domanda.FkUtente);
+
+                // Crea un oggetto QA per la domanda stessa, anche se non ci sono risposte
+                var domandaQA = new QA
+                {
+                    domande = domanda,
+                    Id = domanda.IdDomanda,
+                    Nome = (utenteDomanda != null) ? utenteDomanda.Username : null,
+                    NomeRisposta = null, // Nessuna risposta associata alla domanda
+                    Risposta = null // Nessuna risposta associata alla domanda
+                };
+
+                domandecomp.Add(domandaQA);
 
                 // Utilizza il metodo Select per ottenere tutte le risposte relative alla domanda
                 var risposte = domanda.Risposte.Select(r => new QA
                 {
                     domande = domanda,
-                    Nome = (utenteDomanda != null) ? utenteDomanda.Nome : null,
-                    NomeRisposta = (r != null) ? (db.Utenti.FirstOrDefault(u => u.IdUtente == r.FkUtente) != null ? db.Utenti.FirstOrDefault(u => u.IdUtente == r.FkUtente).Nome : null) : null,
-                    Risposta = (r != null) ? r.Risposta : null
+                    Nome = (utenteDomanda != null) ? utenteDomanda.Username : null,
+                    NomeRisposta = (r != null) ? (db.Utenti.FirstOrDefault(u => u.IdUtente == r.FkUtente) != null ? db.Utenti.FirstOrDefault(u => u.IdUtente == r.FkUtente).Username : null) : null,
+                    Risposta = (r != null) ? r.Risposta : null,
+                    IdRisposta = r.IdRisposta
                 }).ToList();
 
                 domandecomp.AddRange(risposte);
@@ -42,6 +51,7 @@ namespace Parrucchiere.Controllers
 
             return View(domandecomp);
         }
+
 
 
         //Get per la create delle domande
@@ -119,7 +129,69 @@ namespace Parrucchiere.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult Risposta()
+        {
+            return View();
+        }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Risposta(Risposte r, int id)
+        {
+            int? userId = Session["UserId"] as int?;
+            r.FkUtente = userId.Value;
+            r.FkDomanda = id;
+            db.Risposte.Add(r);
+            db.SaveChanges();
+
+
+            return RedirectToAction("Index");
+        }
+
+        //Get per edit delle domande
+        public ActionResult EditRisposta(int id)
+        {
+            var d = db.Risposte.Find(id);
+            return View(d);
+        }
+
+
+        //Post per l'edit delle domande
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditRisposta(Risposte r, int id)
+        {
+            int? userId = Session["UserId"] as int?;
+            r.FkUtente = userId.Value;
+            var ris = db.Risposte.Find(id);
+
+            if (ris != null)
+            {
+                ris.FkUtente = r.FkUtente;
+                ris.Risposta = r.Risposta;
+                db.Entry(ris).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        //Get per la delete che parte direttamente al click
+        public ActionResult DeleteRisposta(int id)
+        {
+            var r = db.Risposte.Find(id);
+
+            if (r != null)
+            {
+                
+
+                db.Risposte.Remove(r);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Index");
+        }
 
 
     }

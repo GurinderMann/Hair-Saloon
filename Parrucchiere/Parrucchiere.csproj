@@ -321,6 +321,10 @@
     <Content Include="Views\Domande\Index.cshtml" />
     <Content Include="Views\Recensioni\Edit.cshtml" />
     <Content Include="Views\Recensioni\Create.cshtml" />
+    <Content Include="Views\Domande\Create.cshtml" />
+    <Content Include="Views\Domande\Edit.cshtml" />
+    <Content Include="Views\Domande\Risposta.cshtml" />
+    <Content Include="Views\Domande\EditRisposta.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

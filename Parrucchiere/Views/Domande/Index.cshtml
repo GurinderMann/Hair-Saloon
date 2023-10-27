@@ -7,10 +7,15 @@
 
 <div id="faq" class="faq-body">
     <div class="faq-header">
-        <h3 class="faq-title">FAQ's</h3>
+        <h3 class="faq-title">FAQ</h3>
         <div class="seperator ms-1"></div>
-   
-
+        <div class="d-flex justify-content-end">
+            <a href="@Url.Action("Create")" class="button text-dark type--C">
+                <div class="button__line"></div>
+                <div class="button__line"></div>
+                <span class="button__text">Hai una domanda?</span>
+            </a>
+        </div>
     </div>
 
     <div class="faq-list">
@@ -21,16 +26,80 @@
             <div>
                 <details open>
                     <summary title="How can I pay for my appointment?">@domanda.domande.Testo</summary>
-                    @foreach (var risposta in q)
-                    {
-                        <p class="faq-content">
+                    <div class="d-flex justify-content-end">
+                        <div>
+                            @if (User.Identity.Name == domanda.Nome )
+                            {
 
-                            @risposta.Risposta
-                                                                               
-                        </p>
+
+
+                                <a href="@Url.Action("Edit", new { Id = domanda.Id })" class="mx-2 text-dark"><i class="bi bi-pencil-fill"></i></a>
+
+                                <a data-bs-toggle="modal" data-bs-target="#exampleModal-@domanda.Id" class="text-danger">
+                                    <i class="bi bi-trash-fill"></i>
+                                </a>
+                               
+                            }
+                            <a href="@Url.Action("Risposta", new {Id = domanda.Id})" class="mx-2 text-dark"><i class="bi bi-arrow-return-left"></i></a>
+                        </div>
+
+
+                    </div>
+                    @for (var i = 0; i < q.Count(); i++)
+                    {
+                        var risposta = q.ElementAt(i);
+                        
+                            <p class="faq-content d-flex justify-content-between">
+                                @risposta.Risposta
+                                @if (i > 0) // Display pencil icon for answers, not for the question
+                                {
+                                    if (User.Identity.Name == risposta.NomeRisposta)
+                                    {
+                                        <span>
+                                            <a href="@Url.Action("EditRisposta", new {Id = risposta.IdRisposta})" class="mx-2 text-dark"><i class="bi bi-pencil-fill"></i></a>
+                                            <a data-bs-toggle="modal" data-bs-target="#exampleModal1-@risposta.IdRisposta" class="text-danger">
+                                                <i class="bi bi-trash-fill"></i>
+                                            </a>
+                                        </span>
+                                    }
+                                }
+                            </p>
+                       
+                        <div class="modal fade" id="exampleModal1-@risposta.IdRisposta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-sm">
+                                <div class="modal-content">
+
+                                    <div class="modal-body">
+                                        <h4>  <strong> Sei sicuro di voler eliminare la tua risposta? </strong>    </h4>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                                        <a href="@Url.Action("DeleteRisposta", new { id = risposta.IdRisposta })" class="btn btn-danger">Elimina</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     }
-                    </details>
+                </details>
             </div>
+
+            <div class="modal fade" id="exampleModal-@domanda.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+
+                        <div class="modal-body">
+                            <h4>  <strong> Sei sicuro di voler eliminare la tua domanda? </strong>    </h4>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                            <a href="@Url.Action("Delete", new { id = domanda.Id })" class="btn btn-danger">Elimina</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
         }
     </div>
 </div>
