@@ -5,6 +5,8 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MimeKit;
+using MailKit.Net.Smtp;
 
 namespace Parrucchiere.Controllers
 {

@@ -1,0 +1,113 @@
+﻿body {
+}
+.main-body {
+    padding: 15px;
+}
+
+.card {
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
+}
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0 solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+}
+
+.card-body {
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1rem;
+}
+
+.gutters-sm {
+    margin-right: -8px;
+    margin-left: -8px;
+}
+
+    .gutters-sm > .col, .gutters-sm > [class*=col-] {
+        padding-right: 8px;
+        padding-left: 8px;
+    }
+
+.mb-3, .my-3 {
+    margin-bottom: 1rem !important;
+}
+
+.bg-gray-300 {
+    background-color: #e2e8f0;
+}
+
+.h-100 {
+    height: 100% !important;
+}
+
+.shadow-none {
+    box-shadow: none !important;
+}
+
+
+.arrow {
+    --arrow-size: 1em;
+    --arrow-color: rgb(0, 0, 0);
+    --arrow-color-hover: rgb(0, 0, 0);
+    position: relative;
+    display: inline-flex;
+    vertical-align: middle;
+    width: var(--arrow-size);
+    height: var(--arrow-size);
+    overflow: hidden;
+}
+
+    .arrow::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        box-sizing: border-box;
+        display: inline-block;
+        width: calc(var(--arrow-size) * .7071);
+        height: calc(var(--arrow-size) * .7071);
+        border-top: calc(var(--arrow-size) / 5) solid var(--arrow-color);
+        transition: all 150ms ease-in-out;
+    }
+
+    .arrow.left::after {
+        left: calc(var(--arrow-size) / 5);
+        border-left: calc(var(--arrow-size) / 5) solid var(--arrow-color);
+        transform-origin: top left;
+        transform: rotate(-45deg);
+    }
+
+    .arrow.left:hover::after {
+        box-shadow: calc(var(--arrow-size) / -8) calc(var(--arrow-size) / -8) 0 var(--arrow-color);
+    }
+
+    .arrow.right::after {
+        right: calc(var(--arrow-size) / 5);
+        border-right: calc(var(--arrow-size) / 5) solid var(--arrow-color);
+        transform-origin: top right;
+        transform: rotate(45deg);
+    }
+
+    .arrow.right:hover::after {
+        box-shadow: calc(var(--arrow-size) / 8) calc(var(--arrow-size) / -8) 0 var(--arrow-color);
+    }
+
+a:hover .arrow.left::after,
+a:hover .arrow.right::after {
+    border-color: var(--arrow-color-hover);
+}
+
+a:hover .arrow.left::after {
+    box-shadow: calc(var(--arrow-size) / -8) calc(var(--arrow-size) / -8) 0 var(--arrow-color);
+}
+
+a:hover .arrow.right::after {
+    box-shadow: calc(var(--arrow-size) / 8) calc(var(--arrow-size) / -8) 0 var(--arrow-color);
+}
