@@ -221,3 +221,41 @@ summary:after {
     .button:hover .button__text::after {
         width: calc( 100% - 56px * 2 - 16px );
     }
+
+
+/* Media query per dispositivi con larghezza massima di 768px (ad esempio smartphone in modalità orizzontale) */
+@media (max-width: 1200px) {
+    .faq-body {
+        width: 100%;
+        padding: 2em;
+    }
+
+    .faq-list {
+        width: 100%;
+    }
+
+    .button {
+        width: 180px;
+    }
+
+    .button__text::before,
+    .button__text::after {
+        width: 4px;
+    }
+}
+
+
+@media (max-width: 576px) {
+    .faq-body {
+        padding: 1em; 
+    }
+
+    .button {
+        width: 160px; 
+    }
+
+    .button__text::before,
+    .button__text::after {
+        width: 2px; 
+    }
+}

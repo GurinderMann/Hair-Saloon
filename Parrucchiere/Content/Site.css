@@ -1,4 +1,10 @@
-﻿/* Set padding to keep content from hitting the edges */
+﻿@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400&family=Montserrat:ital@1&display=swap');
+
+* {
+    font-family: 'Inter', sans-serif;
+    font-family: 'Montserrat', sans-serif;
+}
+/* Set padding to keep content from hitting the edges */
 .body-content {
     margin-top: 15px;
     padding-left: 15px;
@@ -83,12 +89,6 @@ svg path {
     }
 
 
-.glass {
-    /* From https://css.glass */
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 16px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(9.8px);
-    -webkit-backdrop-filter: blur(9.8px);
-    border: 1px solid rgba(255, 255, 255, 0.54);
+navbarBg {
+    background-color: #1E2A38 !important;
 }

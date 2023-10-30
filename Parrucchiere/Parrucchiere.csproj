@@ -133,6 +133,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PrenotazioniController.cs" />
+    <Compile Include="Controllers\ProfiloController.cs" />
     <Compile Include="Controllers\RecensioniController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -245,10 +246,17 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Calendar.css" />
     <Content Include="Content\FAQ.css" />
+    <Content Include="Content\Home.css" />
     <Content Include="Content\img\5572897.jpg" />
+    <Content Include="Content\img\client-doing-hair-cut-barber-shop-salon.jpg" />
+    <Content Include="Content\img\close-up-view-getting-haircut.jpg" />
+    <Content Include="Content\img\handsome-man-cutting-beard-barber-salon.jpg" />
+    <Content Include="Content\img\handsome-man-cutting-beard-barber-shop-salon1.jpg" />
+    <Content Include="Content\img\Progetto senza titolo %283%29.png" />
     <Content Include="Content\jQuery-provider.js" />
     <Content Include="Content\jQuery-provider.min.js" />
     <Content Include="Content\Login.css" />
+    <Content Include="Content\registrazione.css" />
     <Content Include="Content\Rev.css" />
     <Content Include="Content\Review.css" />
     <Content Include="Content\tempus-dominus.css" />
@@ -328,6 +336,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Profilo\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
