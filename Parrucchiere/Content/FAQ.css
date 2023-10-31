@@ -253,9 +253,12 @@ summary:after {
     .button {
         width: 160px; 
     }
-
+    .button__text{
+        margin-left : 40px;
+    }
     .button__text::before,
     .button__text::after {
         width: 2px; 
+      
     }
 }

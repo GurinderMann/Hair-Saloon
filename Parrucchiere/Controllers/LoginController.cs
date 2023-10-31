@@ -56,6 +56,8 @@ namespace Parrucchiere.Controllers
 
             if (u.Password != ConfermaPassword)
             {
+            
+
                 ModelState.AddModelError("ConfermaPassword", "Le password non corrispondono.");
             }
 
@@ -63,22 +65,20 @@ namespace Parrucchiere.Controllers
             {
                 if (u.Username == utente.Username)
                 {
-                    ModelState.AddModelError("", "Username già in uso. Scegliere un altro username.");
+                    ModelState.AddModelError("Registra", "Username già in uso. Scegliere un altro username.");
                 }
             }
 
-            // Rimuovi il campo ConfermaPassword dal modello se non vuoi salvarlo nel database
-            ModelState.Remove("ConfermaPassword");
+            u.Role = "User";
+            db.Utenti.Add(u);
+            db.SaveChanges();
+            return RedirectToAction("Login", "Login");
 
-            if (ModelState.IsValid)
-            {
-                u.Role = "User";
-                db.Utenti.Add(u);
-                db.SaveChanges();
-                return RedirectToAction("Login", "Login");
-            }
 
-            return View(u);
+
+
+
+
         }
 
 

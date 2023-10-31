@@ -66,8 +66,11 @@ namespace Parrucchiere.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create (Domande d)
         {
-            int? userId = Session["UserId"] as int?;
-            d.FkUtente = userId.Value;
+            var u = User.Identity.Name;
+
+            var user = db.Utenti.Where(us => us.Username == u).FirstOrDefault();
+          
+            d.FkUtente = user.IdUtente;
             db.Domande.Add(d);
             db.SaveChanges();
 
@@ -89,8 +92,10 @@ namespace Parrucchiere.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit (Domande d, int id) 
         {
-            int? userId = Session["UserId"] as int?;
-            d.FkUtente = userId.Value;
+            var u = User.Identity.Name;
+
+            var user = db.Utenti.Where(us => us.Username == u).FirstOrDefault();
+            d.FkUtente = user.IdUtente;
             var dom = db.Domande.Find(id);
 
             if(dom != null)
@@ -138,8 +143,10 @@ namespace Parrucchiere.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Risposta(Risposte r, int id)
         {
-            int? userId = Session["UserId"] as int?;
-            r.FkUtente = userId.Value;
+            var u = User.Identity.Name;
+
+            var user = db.Utenti.Where(us => us.Username == u).FirstOrDefault();
+            r.FkUtente = user.IdUtente;
             r.FkDomanda = id;
             db.Risposte.Add(r);
             db.SaveChanges();
@@ -161,8 +168,10 @@ namespace Parrucchiere.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditRisposta(Risposte r, int id)
         {
-            int? userId = Session["UserId"] as int?;
-            r.FkUtente = userId.Value;
+            var u = User.Identity.Name;
+
+            var user = db.Utenti.Where(us => us.Username == u).FirstOrDefault();
+            r.FkUtente = user.IdUtente;
             var ris = db.Risposte.Find(id);
 
             if (ris != null)

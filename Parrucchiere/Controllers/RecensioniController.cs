@@ -41,8 +41,10 @@ namespace Parrucchiere.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Recensioni r)
         {
-            int? userId = Session["UserId"] as int?;
-            r.FkUtente = userId.Value;
+            var u = User.Identity.Name;
+
+            var user = db.Utenti.Where(us => us.Username == u).FirstOrDefault();
+            r.FkUtente = user.IdUtente;
          
             db.Recensioni.Add(r);
             db.SaveChanges();
