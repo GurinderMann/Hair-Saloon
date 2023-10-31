@@ -69,18 +69,18 @@ namespace Parrucchiere.Controllers
 
         public ActionResult Lista()
         {
-            
 
-          
-            var prenotazioni = db.Prenotazioni
-              
-                .Select(p => new PrenotazioneConNomeServizio
-                {
-                    Prenotazione = p,
-                    NomeServizio = p.Servizi.Tipo,
-                    Username = p.Utenti.Nome
-                })
-                .ToList();
+
+
+              var prenotazioni = db.Prenotazioni
+             .Select(p => new PrenotazioneConNomeServizio
+             {
+                 Prenotazione = p,
+                 NomeServizio = p.Servizi.Tipo,
+                 Username = p.Utenti.Nome
+             })
+             .OrderByDescending(p => p.Prenotazione.Data) 
+             .ToList();
 
             return View(prenotazioni);
         }
@@ -130,6 +130,12 @@ namespace Parrucchiere.Controllers
             db.Prenotazioni.Remove(p);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+
+        public ActionResult ListaUtenti()
+        {
+            return View(db.Utenti.ToList());
         }
     }
 }

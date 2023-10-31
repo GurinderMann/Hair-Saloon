@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Parrucchiere.Models.Utenti>
+@{
+    ViewBag.Title = "ListaUtenti";
+}
+<link href="~/Content/Lista.css" rel="stylesheet" />
+
+
+
+<div class="container">
+    <h2><strong> Utenti </strong>  </h2>
+    <ul class="responsive-table text-center">
+        <li class="table-header">
+            <div class="col col-1">Username</div>
+            <div class="col col-2">Ruolo</div>
+            <div class="col col-3">Modifica</div>
+
+        </li>
+        @foreach (var p in Model)
+        {
+            <li class="table-row">
+                <div class="col col-1" data-label="Username ">@p.Username</div>
+                <div class="col col-2 " data-label="Ruolo">@p.Role</div>
+                <div class="col col-3 " data-label="Modifica">
+                    <a href="@Url.Action("Edit", new { id = p.IdUtente })" class="btn btn-warning">Modifica</a>
+                </div>
+
+
+
+            </li>
+        }
+
+    </ul>
+</div>

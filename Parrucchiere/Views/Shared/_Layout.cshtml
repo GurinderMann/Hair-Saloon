@@ -15,7 +15,8 @@
 <body style="background-image: url('../../content/img/5572897.jpg');">
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark " style="background: #1E2A38 !important">
         <div class="container">
-            @Html.ActionLink("Magic", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+         
+   
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Attiva/Disattiva spostamento" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -48,7 +49,7 @@
                                 <li><a class="dropdown-item" href="@Url.Action("Index", "Admin")">Calendario appuntamenti</a></li>
                                 <li><a class="dropdown-item" href="@Url.Action("Lista", "Admin")">Lista appuntamenti</a></li>
                                 <li><a class="dropdown-item" href="@Url.Action("Index", "Admin")">Gestione ferie</a></li>
-                                <li><a class="dropdown-item" href="@Url.Action("Index", "Admin")">Gestione utenti</a></li>
+                                <li><a class="dropdown-item" href="@Url.Action("ListaUtenti", "Admin")">Gestione utenti</a></li>
 
                             </ul>
                         </li>

@@ -8,9 +8,9 @@
     <div class="left">
         <div class="calendar">
             <div class="month">
-                <i class="fas fa-angle-left prev"></i>
+                <i class="bi bi-arrow-left-circle-fill prev text-primary"></i>
                 <div class="date">december 2015</div>
-                <i class="fas fa-angle-right next"></i>
+                <i class="bi bi-arrow-right-circle-fill next text-primary"></i>
             </div>
             <div class="weekdays">
                 <div>Sun</div>
@@ -40,18 +40,18 @@
         </div>
         <hr />
         <input type="date" id="Data" class="d-none" />
-     
+
         <div id="Appuntamenti">
             <ul id="appuntamentiList">
             </ul>
-     
+
         </div>
 
 
 
     </div>
 
-  
+
 </div>
 
 
@@ -75,24 +75,37 @@
                     success: function (data) {
 
                         $('#appuntamentiList').empty();
-                        
 
-                        // Aggiungi gli appuntamenti dal database
-                        data.slice(0, -1).forEach(function (appuntamento) {
+                        // Ordina gli appuntamenti in base al orario
+                        data.slice(0, -1).sort(function (a, b) {
+                            var timeA = parseTime(a.DataAppuntamento);
+                            var timeB = parseTime(b.DataAppuntamento);
+                            return timeA - timeB;
+                        }).forEach(function (appuntamento) {
                             var listItem = '<a href="/Admin/Edit/' + appuntamento.AppuntamentoId + '" class="list-item-link">';
-                            listItem += '<div class="fs-5">' + appuntamento.DataAppuntamento + ' - ' + appuntamento.Tipo + ' <br />' +  appuntamento.NomeUtente + '</div>';
+                            listItem += '<div class="fs-5">' + appuntamento.DataAppuntamento + ' - ' + appuntamento.Tipo + ' <br />' + appuntamento.NomeUtente + '</div>';
                             listItem += '</a>';
                             $('#appuntamentiList').append(listItem);
                         });
 
                         // Aggiungi il totale incassato
                         var totaleIncassato = data[data.length - 1].TotaleIncassato;
-                        var totaleIncassatoHtml = ' <hr /> <strong class="fs-4">Guadagno stimato: ' + totaleIncassato + ' € ' +  ' </strong>';
+                        var totaleIncassatoHtml = ' <hr /> <strong class="fs-4">Guadagno stimato: ' + totaleIncassato + ' € ' + ' </strong>';
                         $('#appuntamentiList').append(totaleIncassatoHtml);
                     }
                 });
             });
         });
+
+        // Funzione per impostare l'orario nel formato "hh:mm" e ritornare i minuti tot
+        function parseTime(timeString) {
+            var parts = timeString.split(":");
+            var hours = parseInt(parts[0]);
+            var minutes = parseInt(parts[1]);
+            return hours * 60 + minutes;
+        }
     </script>
 }
+
+
 

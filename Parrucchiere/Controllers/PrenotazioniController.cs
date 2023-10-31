@@ -30,7 +30,9 @@ namespace Parrucchiere.Controllers
                     Prenotazione = p,
                     NomeServizio = p.Servizi.Tipo
                 })
+                .OrderByDescending(p => p.Prenotazione.Data)
                 .ToList();
+
 
             return View(prenotazioni);
         }
@@ -76,7 +78,7 @@ namespace Parrucchiere.Controllers
             var ferie = db.Ferie.ToList()
                  .Select(f => new SelectListItem
                  {
-                     Text = "Inizio ferie" + f.DataInizio.ToString() + " Fine ferie " + f.DataFine.ToString()
+                     Text = f.DataInizio.ToShortDateString() + " - " + f.DataFine.ToShortDateString()
                  }).ToList();
 
             ViewBag.Ferie = ferie;
@@ -95,8 +97,8 @@ namespace Parrucchiere.Controllers
                 if (a.Fine.TimeOfDay < orarioMassimo)
                 {
                     bool orarioOccupato = db.Prenotazioni.Any(app =>
-               (app.Data <= a.Fine && app.Data >= a.Data) ||
-               (app.Fine >= a.Data && app.Fine <= a.Fine)
+                   (app.Data <= a.Fine && app.Data >= a.Data) ||
+                   (app.Fine >= a.Data && app.Fine <= a.Fine)
            );
 
                     // Recupero le ferie dal database
@@ -129,7 +131,7 @@ namespace Parrucchiere.Controllers
                         db.Prenotazioni.Add(a);
                         db.SaveChanges();
 
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index");
                     }
                     else
                     {

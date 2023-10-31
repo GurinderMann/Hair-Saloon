@@ -16,32 +16,41 @@
     @Html.AntiForgeryToken()
     <div class="segment">
         <h1>Registrati</h1>
-        @Html.ValidationMessage("Login", new { @class = "text-danger" })
+        
     </div>
     <label>
-        <input type="text" name="Nome" placeholder="Nome" />
+        <input type="text" name="Nome" placeholder="Nome" value="@(Model?.Nome ?? "")" />
+       
     </label>
     <label>
-        <input type="text" name="Cognome" placeholder="Cognome" />
+        <input type="text" name="Cognome" placeholder="Cognome" value="@(Model?.Cognome ?? "")" />
     </label>
     <label>
-        <input type="text" name="Email" placeholder="Email" />
+        <input type="text" name="Email" placeholder="Email" value="@(Model?.Email ?? "")" />
+        @Html.ValidationMessage("Email", new { @class = "text-danger fw-bolder" })
     </label>
     <label>
-        <input type="text" name="Telefono" placeholder="Telefono" />
+        <input type="text" name="Telefono" placeholder="Telefono" value="@(Model?.Telefono ?? "")" />
+        @Html.ValidationMessage("Telefono", new { @class = "text-danger fw-bolder" })
     </label>
     <label>
-        <input type="text" name="Username" placeholder="Username" />
+        <input type="text" name="Username" placeholder="Username" value="@(Model?.Username ?? "")" />
+        @Html.ValidationMessage("Username", new { @class = "text-danger fw-bolder" })
     </label>
     <label>
-        <input type="password" name="password" placeholder="Password" />
+       
+        <input type="password" name="password" placeholder="Password" value="@(Model?.Password ?? "")" />
     </label>
     <label>
-        <input type="password" name="ConfermaPassword" placeholder="Conferma Password" />
+        <input type="password" name="ConfermaPassword" placeholder="Conferma Password" value="@(Model?.Password ?? "")" />
+
+        @Html.ValidationMessage("Password", new { @class = "text-danger fw-bolder" })
     </label>
+
+
     <button class="red" type="submit"> Registrati</button>
 
-    <button class="red mt-2" type="button"  id="loginButton"> Hai già un account?</button>
+    <button class="red mt-2" type="button" id="loginButton"> Hai già un account?</button>
 
 }
 

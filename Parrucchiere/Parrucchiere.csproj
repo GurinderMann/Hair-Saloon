@@ -367,6 +367,7 @@
     <Content Include="Views\Profilo\Edit.cshtml" />
     <Content Include="Views\Profilo\EditPass.cshtml" />
     <Content Include="Views\Login\Registrati.cshtml" />
+    <Content Include="Views\Admin\ListaUtenti.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
