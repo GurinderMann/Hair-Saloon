@@ -4,35 +4,39 @@
 }
 <link href="~/Content/Lista.css" rel="stylesheet" />
 
-
-<h2>Elenco Prenotazioni</h2>
-<div class="table-container">
-    <table class="center-table">
-        <tr>
-            <th>Data</th>
-            <th>Servizio</th>
-            <th>Nome</th>
-            <th>Stato</th>
-        </tr>
+<div class="container">
+    <h2><strong> Prenotazioni </strong>  </h2>
+    <ul class="responsive-table text-center">
+        <li class="table-header">
+            <div class="col col-1">Data</div>
+            <div class="col col-2">Servizio</div>
+            <div class="col col-3">Nome</div>
+            <div class="col col-4">Dettagli</div>
+        </li>
         @foreach (var p in Model)
         {
-            <tr>
-                <td>@p.Prenotazione.Data</td>
-                <td>@p.NomeServizio</td>
-                <td>@p.Username</td>
-                <td>
+            <li class="table-row">
+                <div class="col col-1" data-label="Data ">@p.Prenotazione.Data</div>
+                <div class="col col-2 " data-label="Servizio">@p.NomeServizio</div>
+                <div class="col col-3" data-label="Nome">@p.Username</div>
+                <div class="col col-4" data-label="Dettagli">
                     @if (@p.Prenotazione.Fine < DateTime.Now)
                     {
-                        <span class="prenotazione-passata">Prenotazione passata</span>
+                        <span class="text-danger">Prenotazione passata</span>
                     }
                     else
                     {
                         <a href="@Url.Action("Edit", new { id = p.Prenotazione.IdPrenotazione })" class="btn btn-warning">Modifica</a>
                     }
-                </td>
-            </tr>
+                </div>
+             
+                  
+             
+            </li>
         }
-    </table>
-    </div>
+       
+    </ul>
+</div>
+
 
 

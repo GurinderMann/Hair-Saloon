@@ -6,28 +6,39 @@
 
 <link href="~/Content/Lista.css" rel="stylesheet" />
 
-<h2>Elenco Prenotazioni</h2>
-<table class="center-table ">
-    <tr>
-        <th>Data</th>
-        <th>Servizio</th>
-        <th>Stato</th>
-    </tr>
-    @foreach (var p in Model)
-    {
-        <tr>
-            <td>@p.Prenotazione.Data</td>
-            <td>@p.NomeServizio</td>
-            <td>
-                @if (@p.Prenotazione.Fine< DateTime.Now)
-                {
-                    <span class="prenotazione-passata">Prenotazione passata</span>
-                }
-                else
-                {
-                    <a href="@Url.Action("Edit", new { id = p.Prenotazione.IdPrenotazione })" class="btn btn-warning">Modifica</a>
-                }
-            </td>
-        </tr>
-    }
-</table>
+<div class="container">
+    <h2><strong> Le tue prenotazioni </strong>  </h2>
+    <ul class="responsive-table text-center">
+        <li class="table-header">
+            <div class="col col-1">Data</div>
+            <div class="col col-2">Servizio</div>
+            
+            <div class="col col-4">Dettagli</div>
+        </li>
+        @foreach (var p in Model)
+        {
+            <li class="table-row">
+                <div class="col col-1" data-label="Data">@p.Prenotazione.Data</div>
+                <div class="col col-2 " data-label="Servizio">@p.NomeServizio</div>
+             
+                <div class="col col-4" data-label="Dettagli">
+                    @if (@p.Prenotazione.Fine < DateTime.Now)
+                    {
+                        <span class="text-danger">Prenotazione passata</span>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Edit", new { id = p.Prenotazione.IdPrenotazione })" class="btn btn-warning">Modifica</a>
+                    }
+                </div>
+
+
+
+            </li>
+        }
+
+    </ul>
+</div>
+
+
+

@@ -1,39 +1,84 @@
-﻿h2 {
-    font-size: 24px;
+﻿
+
+.container {
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+h2 {
+   
+    margin: 20px 0;
     text-align: center;
 }
 
-.table-container {
-    width: 60%;
-    margin: 20px auto;
-    background-color: transparent;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  
+
+.responsive-table li {
+    border-radius: 3px;
+    padding: 25px 30px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
 }
 
-.center-table {
-    width: 100%;
-    border-collapse: collapse;
+.responsive-table .table-header {
+    background-color: #1E2A38;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color:white;
 }
 
-th, td {
-    padding: 10px;
-    text-align: left;
+.responsive-table .table-row {
+    background-color: #ffffff;
+    box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1);
 }
 
-th {
-    background-color: #023047;
-    color: white;
+.responsive-table .col-1 {
+    flex-basis: 10%;
 }
 
-tr:nth-child(even) {
-    background-color: #f2f2f2;
+.responsive-table .col-2 {
+    flex-basis: 40%;
 }
 
-
-tr:nth-child(even) {
-    background-color: #f2f2f2;
+.responsive-table .col-3 {
+    flex-basis: 25%;
 }
 
-.prenotazione-passata {
-    color: #FF0000;
+.responsive-table .col-4 {
+    flex-basis: 25%;
+}
+
+@media all and (max-width: 767px) {
+    .responsive-table .table-header {
+        display: none;
+    }
+
+    .responsive-table .table-row {
+    }
+
+    .responsive-table li {
+        display: block;
+    }
+
+    .responsive-table .col {
+        flex-basis: 100%;
+    }
+
+    .responsive-table .col {
+        display: flex;
+        padding: 10px 0;
+    }
+
+        .responsive-table .col:before {
+            color: #6C7A89;
+            padding-right: 10px;
+            content: attr(data-label);
+            flex-basis: 50%;
+            text-align: right;
+        }
 }
