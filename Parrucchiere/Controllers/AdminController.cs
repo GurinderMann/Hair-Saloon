@@ -13,6 +13,8 @@ namespace Parrucchiere.Controllers
     {
         ModelDbContext db = new ModelDbContext();
         // GET: Admin
+
+       
         public ActionResult Index()
         {
             return View();

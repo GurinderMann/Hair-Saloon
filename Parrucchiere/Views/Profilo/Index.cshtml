@@ -88,7 +88,8 @@
                             <hr>
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <a class="btn btn-info ">Edit</a>
+                                    <a class="btn btn-primary " href="@Url.Action("Edit", "Profilo", new {id = u.IdUtente}) ">Edit</a>
+                                    <a class="btn btn-warning " href="@Url.Action("EditPass", "Profilo", new {id = u.IdUtente}) ">Modifica password</a>
                                    
                                 </div>
                             </div>

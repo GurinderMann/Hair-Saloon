@@ -7,24 +7,54 @@
     <title>@ViewBag.Title - Applicazione ASP.NET</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </head>
-<body style=" background-image: url('../../content/img/5572897.jpg');">
+<body style="background-image: url('../../content/img/5572897.jpg');">
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark " style="background: #1E2A38 !important">
         <div class="container">
-            @Html.ActionLink("Magic ", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            @Html.ActionLink("Magic", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Attiva/Disattiva spostamento" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1 ">
+                <ul class="navbar-nav flex-grow-1">
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Prenota", "Create", "Prenotazioni", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("FAQ", "Index", "Domande", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Profilo", "Index", "Profilo", new { area = "" }, new { @class = "nav-link" })</li>
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Profilo", "Index", "Profilo", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Logout", "Logout", "Login", new { area = "" }, new { @class = "nav-link" })</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Login", "Login", "Login", new { area = "" }, new { @class = "nav-link " })</li>
+
+                    }
                 </ul>
+                @if (User.IsInRole("Admin"))
+                {
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <button class="btn bg-transparent nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                Admin
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
+                                <li><a class="dropdown-item" href="@Url.Action("Index", "Admin")">Calendario appuntamenti</a></li>
+                                <li><a class="dropdown-item" href="@Url.Action("Lista", "Admin")">Lista appuntamenti</a></li>
+                                <li><a class="dropdown-item" href="@Url.Action("Index", "Admin")">Gestione ferie</a></li>
+                                <li><a class="dropdown-item" href="@Url.Action("Index", "Admin")">Gestione utenti</a></li>
+
+                            </ul>
+                        </li>
+                    </ul>
+                }
+
             </div>
         </div>
     </nav>

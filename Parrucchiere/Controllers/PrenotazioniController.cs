@@ -19,11 +19,12 @@ namespace Parrucchiere.Controllers
         //Recupera le prenotazioni passate e future del utente
         public ActionResult Index()
         {
-            int? userId = Session["UserId"] as int?;
-
+            var u = User.Identity.Name;
+          
+            var user = db.Utenti.Where(us => us.Username == u).FirstOrDefault();
             // Recupera le prenotazioni dell'utente con il nome del servizio associato
             var prenotazioni = db.Prenotazioni
-                .Where(a => a.FkUtente == userId)
+                .Where(a => a.FkUtente == user.IdUtente)
                 .Select(p => new PrenotazioneConNomeServizio
                 {
                     Prenotazione = p,
@@ -46,71 +47,110 @@ namespace Parrucchiere.Controllers
                   Text = s.Tipo + " - " + s.Costo.ToString("C")
               }).ToList();
 
+            var ferie = db.Ferie.ToList()
+                .Select(f => new SelectListItem
+                {
+                    Text =    f.DataInizio.ToShortDateString() + " - " + f.DataFine.ToShortDateString()
+                }).ToList();
 
+            ViewBag.Ferie = ferie;
 
             ViewBag.TipoOptions = servizi;
             return View();
         }
 
-   
+
         //Post della create delle prenotazioni
         [HttpPost]
         [ValidateAntiForgeryToken]
+      
         public ActionResult Create(Prenotazioni a)
         {
-            //Dropdwon dei servizi disponibili
+            // Dropdown dei servizi disponibili
             var servizi = db.Servizi.Select(s => new SelectListItem
             {
                 Value = s.IdServizio.ToString(),
                 Text = s.Tipo
             }).ToList();
 
+            var ferie = db.Ferie.ToList()
+                 .Select(f => new SelectListItem
+                 {
+                     Text = "Inizio ferie" + f.DataInizio.ToString() + " Fine ferie " + f.DataFine.ToString()
+                 }).ToList();
+
+            ViewBag.Ferie = ferie;
             ViewBag.TipoOptions = servizi;
 
-            //Seleziono il servizio dal dropdown
+            // Seleziono il servizio dal dropdown
             var servizioSelezionato = db.Servizi.FirstOrDefault(s => s.IdServizio == a.FkServizi);
 
-            //Controllo se il servizio è esistente
+            // Controllo se il servizio è esistente
             if (servizioSelezionato != null)
             {
-              
                 a.Fine = a.Data.AddMinutes((double)servizioSelezionato.Durata);
-            }
 
-            // Controllo se l'orario è già occupato
-            bool orarioOccupato = db.Prenotazioni.Any(app =>
-                (app.Data <= a.Fine && app.Data >= a.Data) ||
-                (app.Fine >= a.Data && app.Fine <= a.Fine)
-            );
-
-            //Controllo che la data di prenotazione non sia già passata
-            var oggi = DateTime.Now;
-            if (a.Data >= oggi)
-            {
-                if (orarioOccupato)
+                // Verifico se l'orario di fine supera le 20:00
+                TimeSpan orarioMassimo = TimeSpan.Parse("20:00");
+                if (a.Fine.TimeOfDay < orarioMassimo)
                 {
-                    //Messaggio se l'orario selezionato è occupato
-                    ModelState.AddModelError("Data", "L'orario selezionato è già occupato. Scegli un altro orario.");
-                    return View(a);
+                    bool orarioOccupato = db.Prenotazioni.Any(app =>
+               (app.Data <= a.Fine && app.Data >= a.Data) ||
+               (app.Fine >= a.Data && app.Fine <= a.Fine)
+           );
+
+                    // Recupero le ferie dal database
+                    var fer = db.Ferie.ToList();
+
+                    // Confronto la data della prenotazione con le date di inizio e fine delle ferie
+                    bool dataInFerie = false;
+
+                    foreach (var f in fer)
+                    {
+                        if (a.Data >= f.DataInizio && a.Data <= f.DataFine)
+                        {
+                            dataInFerie = true;
+                            break;
+                        }
+                    }
+
+                    if (dataInFerie)
+                    {
+                        ModelState.AddModelError("Data", "La data selezionata è durante le ferie. Scegli un'altra data.");
+                    }
+                    else if (!orarioOccupato)
+                    {
+                     
+
+                        var u = User.Identity.Name;
+                        var user = db.Utenti.Where(us => us.Username == u).FirstOrDefault();
+                        a.FkUtente = user.IdUtente;
+
+                        db.Prenotazioni.Add(a);
+                        db.SaveChanges();
+
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        // Messaggio se l'orario selezionato è occupato
+                        ModelState.AddModelError("Data", "L'orario selezionato è già occupato. Scegli un altro orario.");
+                    }
                 }
-
-                //Prendo userId e lo assegno a FkUtente
-                int? userId = Session["UserId"] as int?;
-                a.FkUtente = userId.Value;
-
-
-                db.Prenotazioni.Add(a);
-                db.SaveChanges();
-
-                return RedirectToAction("Index", "Home");
+                else 
+                {
+                    ModelState.AddModelError("Data", "L'orario selezionato non è valido, perfavore scegli un orario diverso.");
+                }
             }
-            else
-            {
-                //Se la data selezionata è già passata
-                ModelState.AddModelError("Data", "La data inserita non è valida, per favore ricontrolla la data.");
-                return View(a);
-            }
+
+           
+          
+
+            return View(a);
         }
+
+
+
 
 
         // Get per l'edit degli appuntamenti da parte del utente

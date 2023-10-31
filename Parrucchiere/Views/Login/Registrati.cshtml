@@ -1,0 +1,54 @@
+﻿@model Parrucchiere.Models.Utenti
+
+@{
+    ViewBag.Title = "Registrati";
+}
+
+
+
+
+
+<link href="~/Content/Login.css" rel="stylesheet" />
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="segment">
+        <h1>Registrati</h1>
+        @Html.ValidationMessage("Login", new { @class = "text-danger" })
+    </div>
+    <label>
+        <input type="text" name="Nome" placeholder="Nome" />
+    </label>
+    <label>
+        <input type="text" name="Cognome" placeholder="Cognome" />
+    </label>
+    <label>
+        <input type="text" name="Email" placeholder="Email" />
+    </label>
+    <label>
+        <input type="text" name="Telefono" placeholder="Telefono" />
+    </label>
+    <label>
+        <input type="text" name="Username" placeholder="Username" />
+    </label>
+    <label>
+        <input type="password" name="password" placeholder="Password" />
+    </label>
+    <label>
+        <input type="password" name="ConfermaPassword" placeholder="Conferma Password" />
+    </label>
+    <button class="red" type="submit"> Registrati</button>
+    <button class="red mt-2" type="button" c id="loginButton"> Hai già un account?</button>
+
+}
+
+@section scripts
+    {
+    <script>
+      document.getElementById("loginButton").addEventListener("click", function () {
+      window.location.href = "@Url.Action("Login", "Login")";
+        });
+    </script>
+}

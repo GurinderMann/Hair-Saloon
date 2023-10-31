@@ -52,6 +52,21 @@
     <div class="form-horizontal  mx-5" id="crea">
 
         <hr />
+
+        <h3> Ferie :</h3>
+        <ul>
+            @foreach (var ferie in ViewBag.Ferie as List<SelectListItem>)
+            {
+
+                <li>
+
+                    <p>@ferie.Text </p>
+                </li>
+            }
+
+        </ul>
+
+        <hr />
         <h3>Servizi offerti</h3>
 
         <ul>
@@ -63,8 +78,13 @@
                     <strong>@tipoOption.Text </strong>
                 </li>
             }
+
         </ul>
+
         <hr />
+
+
+
         <h4 class="mb-3">Prenotazione appuntamento</h4>
 
 
@@ -90,8 +110,12 @@
                     <option value="16:30">16:30</option>
                     <option value="17:00">17:00</option>
                     <option value="17:30">17:30</option>
-
                     <option value="18:00">18:00</option>
+                    <option value="18:30">18:30</option>
+                    <option value="19:00">19:00</option>
+                    <option value="19:30">19:30</option>
+
+                    
                 </select>
             </div>
         </div>

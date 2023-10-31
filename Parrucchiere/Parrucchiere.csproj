@@ -170,6 +170,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Domande.cs" />
+    <Compile Include="Models\Ferie.cs" />
     <Compile Include="Models\ModelDbContext.cs" />
     <Compile Include="Models\PrenotazioneConNomeServizio.cs" />
     <Compile Include="Models\Prenotazioni.cs" />
@@ -179,7 +180,6 @@
     <Compile Include="Models\Risposte.cs" />
     <Compile Include="Models\Servizi.cs" />
     <Compile Include="Models\SiteRole.cs" />
-    <Compile Include="Models\sysdiagrams.cs" />
     <Compile Include="Models\Utenti.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -346,8 +346,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Prenotazioni\Create.cshtml" />
     <Content Include="Views\Login\login.cshtml" />
@@ -366,6 +364,9 @@
     <Content Include="Views\Domande\Risposta.cshtml" />
     <Content Include="Views\Domande\EditRisposta.cshtml" />
     <Content Include="Views\Profilo\Index.cshtml" />
+    <Content Include="Views\Profilo\Edit.cshtml" />
+    <Content Include="Views\Profilo\EditPass.cshtml" />
+    <Content Include="Views\Login\Registrati.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

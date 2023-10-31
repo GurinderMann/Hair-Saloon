@@ -35,7 +35,7 @@
 
                                 <a href="@Url.Action("Edit", new { Id = domanda.Id })" class="mx-2 text-dark"><i class="bi bi-pencil-fill"></i></a>
 
-                                <a data-bs-toggle="modal" data-bs-target="#exampleModal-@domanda.Id" class="text-danger">
+                                <a data-bs-toggle="modal" data-bs-target="#exampleModal-@domanda.Id" class="text-danger text-decoration-none">
                                     <i class="bi bi-trash-fill"></i>
                                 </a>
                                
@@ -57,7 +57,7 @@
                                     {
                                         <span>
                                             <a href="@Url.Action("EditRisposta", new {Id = risposta.IdRisposta})" class="mx-2 text-dark"><i class="bi bi-pencil-fill"></i></a>
-                                            <a data-bs-toggle="modal" data-bs-target="#exampleModal1-@risposta.IdRisposta" class="text-danger">
+                                            <a data-bs-toggle="modal" data-bs-target="#exampleModal1-@risposta.IdRisposta" class="text-danger ">
                                                 <i class="bi bi-trash-fill"></i>
                                             </a>
                                         </span>

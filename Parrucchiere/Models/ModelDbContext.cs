@@ -17,8 +17,8 @@ namespace Parrucchiere.Models
         public virtual DbSet<Recensioni> Recensioni { get; set; }
         public virtual DbSet<Risposte> Risposte { get; set; }
         public virtual DbSet<Servizi> Servizi { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Utenti> Utenti { get; set; }
+        public virtual DbSet<Ferie> Ferie { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
