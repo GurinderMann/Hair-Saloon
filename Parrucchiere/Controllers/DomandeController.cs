@@ -24,7 +24,7 @@ namespace Parrucchiere.Controllers
             {
                 var utenteDomanda = db.Utenti.FirstOrDefault(u => u.IdUtente == domanda.FkUtente);
 
-                // Crea un oggetto QA per la domanda stessa, anche se non ci sono risposte
+                // Creo un oggetto QA per la domanda stessa, anche se non ci sono risposte
                 var domandaQA = new QA
                 {
                     domande = domanda,
@@ -36,7 +36,7 @@ namespace Parrucchiere.Controllers
 
                 domandecomp.Add(domandaQA);
 
-                // Utilizza il metodo Select per ottenere tutte le risposte relative alla domanda
+                // Utilizzo il metodo Select per ottenere tutte le risposte relative alla domanda
                 var risposte = domanda.Risposte.Select(r => new QA
                 {
                     domande = domanda,
@@ -134,11 +134,14 @@ namespace Parrucchiere.Controllers
             return RedirectToAction("Index");
         }
 
+
+        //Create della risposta associata alla domanda
         public ActionResult Risposta()
         {
             return View();
         }
 
+        //Create della risposta associata alla domanda
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Risposta(Risposte r, int id)
@@ -155,7 +158,9 @@ namespace Parrucchiere.Controllers
             return RedirectToAction("Index");
         }
 
-        //Get per edit delle domande
+
+
+        //Get per edit della risposta
         public ActionResult EditRisposta(int id)
         {
             var d = db.Risposte.Find(id);
@@ -163,7 +168,7 @@ namespace Parrucchiere.Controllers
         }
 
 
-        //Post per l'edit delle domande
+        //Post per l'edit della risposta
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditRisposta(Risposte r, int id)
@@ -186,7 +191,9 @@ namespace Parrucchiere.Controllers
             return RedirectToAction("Index");
         }
 
-        //Get per la delete che parte direttamente al click
+
+
+        //Delete direttamente al click della risposta
         public ActionResult DeleteRisposta(int id)
         {
             var r = db.Risposte.Find(id);

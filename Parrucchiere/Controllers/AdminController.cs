@@ -8,18 +8,19 @@ using System.Web.Mvc;
 
 namespace Parrucchiere.Controllers
 {
-    
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         ModelDbContext db = new ModelDbContext();
-        // GET: Admin
+        
 
-       
+       //Calendario con ricerca appuntamenti per data
         public ActionResult Index()
         {
             return View();
         }
 
+        //Json result per visualizzare le prenotazioni tramite chiamata AJAX
         public JsonResult Prenotazioni(DateTime data)
         {
             var app = db.Prenotazioni
@@ -67,6 +68,8 @@ namespace Parrucchiere.Controllers
             return Json(risultati, JsonRequestBehavior.AllowGet);
         }
 
+
+        //Lista delle prenotazioni passate e future
         public ActionResult Lista()
         {
 
@@ -85,6 +88,8 @@ namespace Parrucchiere.Controllers
             return View(prenotazioni);
         }
 
+
+        //Edit della prenotazione
         public ActionResult Edit(int id)
         {
             var servizi = db.Servizi.Select(s => new SelectListItem
@@ -98,6 +103,8 @@ namespace Parrucchiere.Controllers
             return View(p);
         }
 
+
+        //Edit della prenotazione
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Prenotazioni a, int id)
@@ -124,6 +131,8 @@ namespace Parrucchiere.Controllers
             return View(a);
         }
 
+
+        //Delete direttamente al click
         public ActionResult Delete(int id)
         {
             Prenotazioni p = db.Prenotazioni.Find(id);
@@ -133,9 +142,143 @@ namespace Parrucchiere.Controllers
         }
 
 
+        //Lista di tutti gli utenti registrati
         public ActionResult ListaUtenti()
         {
             return View(db.Utenti.ToList());
         }
+
+        //Edit del ruolo degli utenti registrati
+        public ActionResult EditUtenti(int id)
+        {
+            var u = db.Utenti.Find(id); 
+            return View(u);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditUtenti(int id, Utenti u)
+        {
+            var user = db.Utenti.Find(id);
+            if (user != null) 
+            {
+                user.Role = u.Role;
+                db.Entry(user).State = EntityState.Modified;
+
+
+                db.SaveChanges();
+                return RedirectToAction("ListaUtenti");
+
+            }
+            return View(u);
+        }
+
+
+
+        //Lista delle ferie
+        public ActionResult ferie() 
+        {
+            return View(db.Ferie.ToList());
+        }
+            
+        //Post per creare le ferie fatto con una chiamata AJAX
+        [HttpPost]
+        public ActionResult CreaFerie(Ferie f, DateTime DataInizio, DateTime DataFine)
+        {
+            if (f != null)
+            {
+                f.DataInizio = DataInizio;
+                f.DataFine = DataFine;
+                db.Ferie.Add(f);
+                db.SaveChanges();
+                return RedirectToAction("ferie");
+            }
+            return View();
+        }
+            
+        //Post per modificare le ferie fatto con una chiamata AJAX
+        [HttpPost]
+        public ActionResult EditFerie(int IdFerie, DateTime DataInizio, DateTime DataFine)
+        {
+           var f =  db.Ferie.Find(IdFerie);
+
+            if (f != null)
+            {
+                f.DataInizio = DataInizio;
+                f.DataFine = DataFine;
+                db.Entry(f).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("ferie");
+            };
+
+            return View();
+
+        }
+
+        //Delete direttamente al click
+        public ActionResult EliminaFeria(int id)
+        {
+            Ferie f = db.Ferie.Find(id); 
+            db.Ferie.Remove(f);
+            db.SaveChanges();
+            return RedirectToAction("ferie");
+        }
+
+
+        //Lista di tutti i servizi disponibili
+        public ActionResult ListaServizi() 
+        { 
+            return View(db.Servizi.ToList());
+        }
+
+        //Post per creare un nuovo servizio, fatto con una chiamata AJAX
+        [HttpPost]
+        public ActionResult CreaServizio(Servizi s, string Tipo, int Costo, int Durata) 
+        {
+            if ( s != null)
+            {
+                s.Tipo = Tipo;
+                s.Costo = Costo;
+                s.Durata = Durata;
+                db.Servizi.Add(s);
+                db.SaveChanges();
+                return RedirectToAction("ListaServizi");
+
+            }
+            return View();
+
+        } 
+
+        //Post per modificare un servizio, fatto con una chiamata AJAX
+        [HttpPost]
+        public ActionResult EditServizio( int idSrv,  string Tipo, int Costo, int Durata) 
+        {
+            var s = db.Servizi.Find(idSrv);
+
+            if (s != null)
+            {
+                s.Tipo = Tipo;
+                s.Costo = Costo;
+                s.Durata= Durata;
+
+                db.Entry(s).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("ListaServizi");
+            };
+
+            return View();
+        }
+
+        //Delete direttamente al click
+        public ActionResult EliminaServizio(int id) 
+        {
+            Servizi s = db.Servizi.Find(id);
+            db.Servizi.Remove(s);
+            db.SaveChanges();
+            return RedirectToAction("ListaServizi");
+        }
+
+
+
     }
 }

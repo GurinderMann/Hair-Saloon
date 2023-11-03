@@ -40,6 +40,7 @@ namespace Parrucchiere.Controllers
             return View(user);
         }
 
+        //Edit del profilo tranne la password
         public ActionResult Edit(int id)
         {
             var u = db.Utenti.Find(id);
@@ -66,6 +67,8 @@ namespace Parrucchiere.Controllers
             return View(u);
         }
 
+
+        //Delete del utente
         public ActionResult Delete(int id )
         {
             var user = db.Utenti.Find(id);
@@ -73,22 +76,45 @@ namespace Parrucchiere.Controllers
             if (user != null) 
             {
                 var p = db.Prenotazioni.Where(pr => pr.FkUtente == user.IdUtente).ToList();
-                if (p.Count > 0)
-                {
+                var r = db.Recensioni.Where(re => re.FkUtente == user.IdUtente).ToList() ;
+                var ris = db.Risposte.Where(ri => ri.FkUtente == user.IdUtente).ToList();
+                var dom = db.Domande.Where(d => d.FkUtente == user.IdUtente).ToList();
+              
                     foreach (var item in p)
                     {
                         db.Prenotazioni.Remove(item);
+                       
                     }
+
+                    foreach (var item in r)
+                    {
+                        db.Recensioni.Remove(item);
+
+                    }
+
+                    foreach (var item in dom)
+                    {
+                        db.Domande.Remove(item);
+                    }
+
+                    foreach (var item in ris)
+                    {
+                        db.Risposte.Remove(item);
+                    }
+
+
                     db.Utenti.Remove(user);
                     db.SaveChanges() ;
                     return RedirectToAction("Index");
-                }
-                return View();
+                
+               
             }
 
             return View();
         }
 
+
+        //Edit per la password
         public ActionResult EditPass(int id)
         {
             var user = db.Utenti.Find(id);

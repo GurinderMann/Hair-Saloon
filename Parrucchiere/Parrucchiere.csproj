@@ -170,8 +170,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Domande.cs" />
+    <Compile Include="Models\Email.cs" />
     <Compile Include="Models\Ferie.cs" />
     <Compile Include="Models\ModelDbContext.cs" />
+    <Compile Include="Models\Orari.cs" />
     <Compile Include="Models\PrenotazioneConNomeServizio.cs" />
     <Compile Include="Models\Prenotazioni.cs" />
     <Compile Include="Models\QA.cs" />
@@ -368,6 +370,11 @@
     <Content Include="Views\Profilo\EditPass.cshtml" />
     <Content Include="Views\Login\Registrati.cshtml" />
     <Content Include="Views\Admin\ListaUtenti.cshtml" />
+    <Content Include="Views\Admin\EditUtenti.cshtml" />
+    <Content Include="Views\Admin\ferie.cshtml" />
+    <Content Include="Views\Admin\ListaServizi.cshtml" />
+    <Content Include="Views\Login\Forgot.cshtml" />
+    <Content Include="Views\Login\ResetPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

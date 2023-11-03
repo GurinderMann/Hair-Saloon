@@ -1,0 +1,53 @@
+﻿@model Parrucchiere.Models.Utenti
+
+@{
+    ViewBag.Title = "EditUtenti";
+}
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="container-fluid d-flex justify-content-center align-items-center w-75 ">
+
+
+    <div class="card  justify-content-center align-items-center">
+        <div class="card-body shadow">
+            <h4>Gestisci ruolo di: <br /> @Model.Username</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.IdUtente)
+
+
+
+
+            <div class="form-group mt-3">
+                <label class="form-label">Ruolo:</label>
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.Role, new List<SelectListItem>
+                    {
+                        new SelectListItem { Text = "Admin", Value = "Admin" },
+                        new SelectListItem { Text = "User", Value = "User" }
+                    }, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Salva" class="btn btn-outline-primary mt-3" />
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+}
+
+

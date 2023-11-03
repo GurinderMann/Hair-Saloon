@@ -11,8 +11,10 @@ namespace Parrucchiere.Controllers
     {
         ModelDbContext db = new ModelDbContext();
        
+        
         public ActionResult Index()
         {
+
             var servizi = db.Servizi.ToList()
               .Select(s => new SelectListItem
               {

@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Forgot ";
+}
+<link href="~/Content/Login.css" rel="stylesheet" />
+
+<div class="segment">
+    <h1>Recupero password</h1>
+
+</div>
+
+@if (TempData["Message"] != null)
+{
+    <p>@TempData["Message"]</p>
+}
+
+@using (Html.BeginForm("Forgot", "Login", FormMethod.Post))
+{
+   <label>
+       <input type="text" name="Email" placeholder="Email" />
+   </label>
+
+   <button class="red" type="submit"> Invia codice</button>
+}
+
+

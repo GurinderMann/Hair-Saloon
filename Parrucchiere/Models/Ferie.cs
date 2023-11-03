@@ -10,15 +10,12 @@ namespace Parrucchiere.Models
     public partial class Ferie
     {
         [Key]
-        [Column(Order = 0)]
         public int IdFerie { get; set; }
 
-        [Key]
-        [Column(Order = 1, TypeName = "date")]
+        [Column(TypeName = "date")]
         public DateTime DataInizio { get; set; }
 
-        [Key]
-        [Column(Order = 2, TypeName = "date")]
+        [Column(TypeName = "date")]
         public DateTime DataFine { get; set; }
     }
 }

@@ -50,6 +50,10 @@ namespace Parrucchiere.Models
 
         public string Salt { get; set; }
 
+        public string ResetCode { get; set; }
+
+        public DateTime? Scadenza { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Domande> Domande { get; set; }
 

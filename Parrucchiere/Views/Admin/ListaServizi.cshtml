@@ -1,0 +1,170 @@
+﻿@model IEnumerable<Parrucchiere.Models.Servizi>
+@{
+    ViewBag.Title = "ListaServizi";
+}
+
+
+
+
+
+
+
+<link href="~/Content/Lista.css" rel="stylesheet" />
+
+<div class="container">
+    <h2><strong>Gestione dei servizi</strong></h2>
+    <div class="text-center my-3">
+        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Aggiungi un nuovo Servizio
+        </button>
+    </div>
+    <ul class="responsive-table text-center">
+        <li class="table-header">
+            <div class="col col-1">Tipo</div>
+            <div class="col col-2"> Costo</div>
+            <div class="col col-3"> Durata</div>
+            <div class="col col-4">Azioni</div>
+            
+        </li>
+        @foreach (var s in Model)
+        {
+            <li class="table-row">
+                <div class="col col-1" data-label="Tipo"> <strong> @s.Tipo </strong></div>
+                <div class="col col-2" data-label="Costo"> <strong> @String.Format("{0:C}", s.Costo) </strong></div>
+
+                <div class="col col-3" data-label="Durata"> <strong> @s.Durata  </strong></div>
+
+
+                <div class="col col-4" data-label="Modifica">
+                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal-@s.IdServizio">
+                        Modifica
+                    </button>
+                    <a href="@Url.Action("EliminaServizio", new { id = s.IdServizio })" class="btn btn-danger">Elimina</a>
+
+                </div>
+
+
+            </li>
+        }
+    </ul>
+</div>
+
+@foreach (var s in Model)
+{
+    <div class="modal fade" id="editModal-@s.IdServizio" tabindex="-1" aria-labelledby="editModalLabel-@s.IdServizio" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-center">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel-@s.IdServizio">Modifica ferie</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="editTipo-@s.IdServizio">Tipo</label>
+                        <input class="form-control" id="editTipo-@s.IdServizio" value="@s.Tipo">
+                    </div>
+                    <div class="form-group">
+                        <label for="editCosto-@s.IdServizio">Costo:</label>
+                        <input  class="form-control" id="editCosto-@s.IdServizio" value="@s.Costo">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editDurata-@s.IdServizio">Daurata:</label>
+                        <input type="number" class="form-control" id="editDurata-@s.IdServizio" value="@s.Durata">
+                    </div>
+                    <button id="modificaSrv-@s.IdServizio" class="btn btn-primary mt-2">Salva Modifiche</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class=" modal-dialog modal-dialog-centere">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Aggiungi un periodo di ferie</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="Tipo">Tipo:</label>
+                    <input type="text" class="form-control" id="tipo">
+                </div>
+                <div class="form-group">
+                    <label for="Costo">Costo:</label>
+                    <input type="number" class="form-control" id="costo">
+                </div> 
+                <div class="form-group">
+                    <label for="Durata">Durata:</label>
+                    <input type="number" class="form-control" id="durata">
+                </div>
+                <button id="creaSrv" class="btn btn-success mt-2">Aggiungi il servizio</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+    {
+    <script>
+        $(document).ready(function () {
+            $('#creaSrv').click(function () {
+                var tipo = $('#tipo').val();
+                var costo = $('#costo').val();
+                var durata = $('#durata').val();
+
+                $.ajax({
+                    type: 'POST',
+                    url: "CreaServizio",
+                    data: { Tipo: tipo, Costo: costo,Durata: durata  },
+                    traditional: true,
+                    success: function (result) {
+                        location.reload();
+                    },
+                    error: function (error) {
+
+                    }
+                });
+            });
+         @foreach (var s in Model)
+            {
+                <text>$('#modificaSrv-@s.IdServizio').click(function () {
+                    var tipo = $('#editTipo-@s.IdServizio').val();
+                    var costo = $('#editCosto-@s.IdServizio').val();
+                    var durata = $('#editDurata-@s.IdServizio').val();
+
+                    $.ajax({
+                        type: 'POST',
+                        url: "EditServizio",
+                        data: {
+                            IdSrv: @s.IdServizio,
+                            Tipo: tipo,
+                            Costo: costo,
+                            Durata: durata
+                         
+                        },
+                        traditional: true,
+                        success: function (result) {
+                            location.reload();
+                        },
+                        error: function (error) {
+
+                        }
+                    });
+                });</text>
+            }
+        });
+    </script>
+}

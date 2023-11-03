@@ -13,12 +13,13 @@ namespace Parrucchiere.Models
         }
 
         public virtual DbSet<Domande> Domande { get; set; }
+        public virtual DbSet<Ferie> Ferie { get; set; }
+        public virtual DbSet<Orari> Orari { get; set; }
         public virtual DbSet<Prenotazioni> Prenotazioni { get; set; }
         public virtual DbSet<Recensioni> Recensioni { get; set; }
         public virtual DbSet<Risposte> Risposte { get; set; }
         public virtual DbSet<Servizi> Servizi { get; set; }
         public virtual DbSet<Utenti> Utenti { get; set; }
-        public virtual DbSet<Ferie> Ferie { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

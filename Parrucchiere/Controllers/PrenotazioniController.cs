@@ -7,13 +7,41 @@ using System.Web;
 using System.Web.Mvc;
 using MimeKit;
 using MailKit.Net.Smtp;
-
 namespace Parrucchiere.Controllers
 {
     [Authorize]
     public class PrenotazioniController : Controller
     {
-     
+
+        private Email emailService = new Email(); 
+
+        // Metodo per inviare la conferma dell'appuntamento
+        private void SendConfirmationEmail(string recipientEmail, Prenotazioni appointment)
+        {
+            emailService.SendConfirmationEmail(recipientEmail, appointment);
+        }
+
+        // Metodo per inviare la modifica dell'appuntamento
+        private void SendEditEmail(string recipientEmail, Prenotazioni appointment)
+        {
+            emailService.SendEditEmail(recipientEmail, appointment);
+        }
+
+        // Metodo per inviare il promemoria
+        private void SendReminderEmail(string recipientEmail, Prenotazioni appointment)
+        {
+            emailService.SendReminderEmail(recipientEmail, appointment);
+        }
+
+        //Metodo per inviare la cancellazione dell'appuntamento
+        private void SendDeleteEmail(string recipientEmail, Prenotazioni appointment)
+        {
+            emailService.SendDeleteEmail(recipientEmail, appointment);
+        }
+
+
+
+
         ModelDbContext db = new ModelDbContext();
 
         //Recupera le prenotazioni passate e future del utente
@@ -54,9 +82,9 @@ namespace Parrucchiere.Controllers
                 {
                     Text =    f.DataInizio.ToShortDateString() + " - " + f.DataFine.ToShortDateString()
                 }).ToList();
-
+         
             ViewBag.Ferie = ferie;
-
+          
             ViewBag.TipoOptions = servizi;
             return View();
         }
@@ -81,6 +109,7 @@ namespace Parrucchiere.Controllers
                      Text = f.DataInizio.ToShortDateString() + " - " + f.DataFine.ToShortDateString()
                  }).ToList();
 
+          
             ViewBag.Ferie = ferie;
             ViewBag.TipoOptions = servizi;
 
@@ -127,9 +156,15 @@ namespace Parrucchiere.Controllers
                         var u = User.Identity.Name;
                         var user = db.Utenti.Where(us => us.Username == u).FirstOrDefault();
                         a.FkUtente = user.IdUtente;
-
+                       
                         db.Prenotazioni.Add(a);
                         db.SaveChanges();
+
+                        //Invio email di conferma, prendendo come destinatario l'email dello user che sta prenotando
+                        SendConfirmationEmail(user.Email, a); 
+
+                        //Imposto l'invio del reminder
+                        SendReminderEmail(user.Email, a);
 
                         return RedirectToAction("Index");
                     }
@@ -152,7 +187,7 @@ namespace Parrucchiere.Controllers
         }
 
 
-
+       
 
 
         // Get per l'edit degli appuntamenti da parte del utente
@@ -192,8 +227,9 @@ namespace Parrucchiere.Controllers
                 a.Fine = a.Data.AddMinutes((double)servizioSelezionato.Durata);
             }
 
-            
-           
+                var u = User.Identity.Name;
+                var user = db.Utenti.Where(us => us.Username == u).FirstOrDefault();
+
                 //Assegnazione valori
                 p.Data = a.Data;
                 p.FkServizi = a.FkServizi;
@@ -202,6 +238,9 @@ namespace Parrucchiere.Controllers
 
 
                 db.SaveChanges();
+
+                //Invio email delle modifiche apportate
+                SendEditEmail(user.Email, a);
 
                 return RedirectToAction("Index");
             }
@@ -212,12 +251,20 @@ namespace Parrucchiere.Controllers
         //Delete direttamente al click
         public ActionResult Delete(int id)
         {
+            var u = User.Identity.Name;
+            var user = db.Utenti.Where(us => us.Username == u).FirstOrDefault();
+
             Prenotazioni p = db.Prenotazioni.Find(id);
             db.Prenotazioni.Remove(p);
             db.SaveChanges();
+
+            //Invio email per la cancellazione del appuntamento
+            SendDeleteEmail(user.Email, p);
             return RedirectToAction("Index");
         }
 
+  
 
     }
+
 }

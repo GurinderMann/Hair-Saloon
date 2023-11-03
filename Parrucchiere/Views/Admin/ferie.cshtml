@@ -1,0 +1,166 @@
+﻿@model IEnumerable<Parrucchiere.Models.Ferie>
+@{
+    ViewBag.Title = "ferie";
+}
+
+
+
+
+
+<link href="~/Content/Lista.css" rel="stylesheet" />
+
+<div class="container">
+    <h2><strong>Ferie</strong></h2>
+    <div class="text-center my-3">
+        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Aggiungi un nuovo periodo di ferie
+        </button>
+    </div>
+    <ul class="responsive-table text-center">
+        <li class="table-header">
+            <div class="col col-1"> Inizio</div>
+            <div class="col col-2"> Fine</div>
+            <div class="col col-3">Modifica</div>
+            <div class="col col-4">Elimina</div>
+        </li>
+        @foreach (var f in Model)
+        {
+            <li class="table-row">
+                <div class="col col-1" data-label="Inizio"> <strong> @f.DataInizio.ToShortDateString() </strong></div>
+                <div class="col col-2" data-label="Fine"> <strong> @f.DataFine.ToShortDateString() </strong></div>
+
+
+                <div class="col col-3" data-label="Modifica">
+                    @if (f.DataFine < DateTime.Now)
+                    {
+                        <span class="text-danger">Ferie già concluse</span>
+                    }
+                    else
+                    {
+                        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal-@f.IdFerie">
+                            Modifica
+                        </button>
+                    }
+                </div>
+                <div class="col col-4" data-label="Elimina">
+                    @if (f.DataFine < DateTime.Now)
+                    {
+                        <span class="text-danger">Ferie già concluse</span>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("EliminaFeria", new { id = f.IdFerie })" class="btn btn-danger">Elimina</a>
+                    }
+                </div>
+
+            </li>
+        }
+    </ul>
+</div>
+
+@foreach (var f in Model)
+{
+    <div class="modal fade" id="editModal-@f.IdFerie" tabindex="-1" aria-labelledby="editModalLabel-@f.IdFerie" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-center">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel-@f.IdFerie">Modifica ferie</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="editDataInizio-@f.IdFerie">Data Inizio:</label>
+                        <input type="date" class="form-control" id="editDataInizio-@f.IdFerie" value="@f.DataInizio.ToString("yyyy-MM-dd")">
+                    </div>
+                    <div class="form-group">
+                        <label for="editDataFine-@f.IdFerie">Data Fine:</label>
+                        <input type="date" class="form-control" id="editDataFine-@f.IdFerie" value="@f.DataFine.ToString("yyyy-MM-dd")">
+                    </div>
+                    <button id="modificaFerieButton-@f.IdFerie" class="btn btn-primary mt-2">Salva Modifiche</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class=" modal-dialog modal-dialog-centere">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Aggiungi un periodo di ferie</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="dataInizio">Data Inizio:</label>
+                    <input type="date" class="form-control" id="dataInizio">
+                </div>
+                <div class="form-group">
+                    <label for="dataFine">Data Fine:</label>
+                    <input type="date" class="form-control" id="dataFine">
+                </div>
+                <button id="creaFerieButton" class="btn btn-success mt-2">Crea Ferie</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+    {
+    <script>
+        $(document).ready(function () {
+            $('#creaFerieButton').click(function () {
+                var dataInizio = $('#dataInizio').val();
+                var dataFine = $('#dataFine').val();
+
+                $.ajax({
+                    type: 'POST',
+                    url: "CreaFerie",
+                    data: { DataInizio: dataInizio, DataFine: dataFine },
+                    traditional: true,
+                    success: function (result) {
+                        location.reload();
+                    },
+                    error: function (error) {
+
+                    }
+                });
+            });
+         @foreach (var f in Model)
+            {
+                <text>$('#modificaFerieButton-@f.IdFerie').click(function () {
+                    var dataInizio = $('#editDataInizio-@f.IdFerie').val();
+                    var dataFine = $('#editDataFine-@f.IdFerie').val();
+
+                    $.ajax({
+                        type: 'POST',
+                        url: "EditFerie", 
+                        data: {
+                            IdFerie: @f.IdFerie,
+                            DataInizio: dataInizio,
+                            DataFine: dataFine
+                        },
+                        traditional: true,
+                        success: function (result) {
+                            location.reload();
+                        },
+                        error: function (error) {
+                           
+                        }
+                    });
+                });</text>
+            }
+        });
+    </script>
+}
