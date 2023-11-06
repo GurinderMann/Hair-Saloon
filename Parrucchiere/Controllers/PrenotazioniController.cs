@@ -163,8 +163,7 @@ namespace Parrucchiere.Controllers
                         //Invio email di conferma, prendendo come destinatario l'email dello user che sta prenotando
                         SendConfirmationEmail(user.Email, a); 
 
-                        //Imposto l'invio del reminder
-                        SendReminderEmail(user.Email, a);
+                  
 
                         return RedirectToAction("Index");
                     }

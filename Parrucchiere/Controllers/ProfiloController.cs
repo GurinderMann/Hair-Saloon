@@ -105,7 +105,8 @@ namespace Parrucchiere.Controllers
 
                     db.Utenti.Remove(user);
                     db.SaveChanges() ;
-                    return RedirectToAction("Index");
+                    FormsAuthentication.SignOut();
+                    return RedirectToAction("Login", "Login");
                 
                
             }
