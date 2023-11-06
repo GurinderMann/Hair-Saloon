@@ -4,45 +4,50 @@
 }
 <link href="~/Content/Site.css" rel="stylesheet" />
 
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="">
-                <div class="glass ">
-                    <div>
-                        <h2 class="card-title text-center mt-2">Fai una domanda</h2>
-                        @using (Html.BeginForm())
-                        {
-                            @Html.AntiForgeryToken()
 
-                            <div class="form-horizontal w-100 mx-auto">
-                                <hr />
-                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                <div class="form-group text-center">
-                                    <label> Inserisci qui il tuo testo </label>
-                                    <div>
-                                        <div class="form-floating d-flex justify-content-center align-items-center">
-                                            <textarea class="form-control h-100" name="Testo" id="floatingTextarea2">@Model.Testo</textarea>
-                                        </div>
-                                        @Html.ValidationMessageFor(model => model.Testo, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
 
-                                <div class="form-group d-flex justify-content-center align-items-center mt-3 mb-3">
-                                    <button id="btn" type="submit">
-                                        <p id="btnText" class="mt-2">Invia</p>
-                                        <div class="check-box">
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
-                                                <path fill="transparent" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
-                                            </svg>
-                                        </div>
-                                    </button>
-                                </div>
+
+<div class="container-fluid d-flex justify-content-center align-items-center  ">
+
+
+    <div class="card  justify-content-center align-items-center">
+        <div class="card-body shadow">
+            <h4>Modifica la tua domanda</h4>
+            <hr />
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal w-100 mx-auto">
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group text-center">
+                
+                        <div>
+                            <div class="form-floating d-flex justify-content-center align-items-center">
+                                <textarea class="form-control h-100" name="Testo" id="floatingTextarea2">@Model.Testo</textarea>
                             </div>
-                        }
+                            @Html.ValidationMessageFor(model => model.Testo, "", new { @class = "text-danger" })
+                        </div>
                     </div>
+
+                    <div class="form-group d-flex justify-content-center align-items-center mt-3 mb-3">
+
+                        <button id="btn" type="submit">
+                            <p id="btnText" class="mt-2">Invia</p>
+                            <div class="check-box">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+                                    <path fill="transparent" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+                                </svg>
+                            </div>
+                        </button>
+
+                    </div>
+
+
                 </div>
-            </div>
+            }
+
         </div>
     </div>
 </div>

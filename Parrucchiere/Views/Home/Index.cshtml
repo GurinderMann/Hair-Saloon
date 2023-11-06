@@ -2,6 +2,7 @@
     ViewBag.Title = "Home Page";
 }
 <link href="~/Content/Home.css" rel="stylesheet" />
+<link href="~/Content/Footer.css" rel="stylesheet" />
 <div class="container">
     <div class="header  d-flex justify-content-center align-items-center">
         <img src="~/Content/img/Progetto senza titolo (3).png" class="header-logo" />
@@ -39,7 +40,7 @@
                     <h5> La nostra squadra è composta da talentuosi stilisti e professionisti appassionati, dedica ogni giorno il massimo impegno per realizzare i vostri desideri di bellezza. Siamo sempre aggiornati sulle ultime tendenze e tecniche, garantendo che voi riceviate il massimo livello di servizio e stile personalizzato.</h5>
                     <hr />
                     <div>
-                       
+
                         <p class="fs-3 "><a class="text-light text-decoration-none" href="@Url.Action("Index", "Recensioni")">Scopri cosa dicono di noi <span class="arrow right "></span></a></p>
                     </div>
                 </div>
@@ -47,7 +48,7 @@
                     <img src="~/Content/img/handsome-man-cutting-beard-barber-salon.jpg" class="barber" />
                 </div>
             </div>
-
+            
         </div>
 
 
@@ -85,7 +86,50 @@
         </main>
 
     </div>
-   
+
 
 
 </div>
+<footer class="site-footer mt-5 " >
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-6">
+                <h6>La Nostra Storia</h6>
+                <p class="text-justify">Magic Hair Saloon <i>DOVE L'ELEGANZA SI UNISCE ALLO STILE</i> è un salone esclusivo dedicato a valorizzare la tua bellezza. La nostra missione è creare acconciature straordinarie che riflettano la tua personalità unica. Al Salone di Bellezza Capelli & Stile, siamo specialisti nell'arte del design dei capelli, offrendo una gamma di servizi tra cui taglio, colore, styling e molto altro. Lasciaci trasformare il tuo look e farti sentire al tuo meglio.</p>
+            </div>
+
+
+
+            <div class="col-xs-6 col-md-3">
+                <h6>Informazioni</h6>
+                <ul class="footer-links">
+                    <li><a href="">Contattaci</a></li>
+                    <li><a href="">Privacy </a></li>
+
+                </ul>
+            </div>
+        </div>
+        <hr>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-sm-6 col-xs-12">
+                <p class="copyright-text">
+                    Copyright &copy; 2023 All Rights Reserved by
+                    <a href="#">Magic Hair Saloon</a>.
+                </p>
+            </div>
+
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <ul class="social-icons">
+                    <li><a class="facebook" href="#"><i class="bi bi-facebook"></i></a></li>
+                    <li><a class="twitter" href="#"><i class="bi bi-twitter"></i></a></li>
+                    <li><a class="git" href="https://github.com/GurinderMann" target="_blank"><i class="bi bi-github"></i></a></li>
+                    <li><a class="linkedin" href="https://www.linkedin.com/in/gurinder-singh-mann-509945278/" target="_blank"><i class="bi bi-linkedin"></i></a></li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>

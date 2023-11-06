@@ -1,6 +1,7 @@
 ﻿@model Parrucchiere.Models.Utenti
 @{
     ViewBag.Title = "login";
+   
 
 }
 <link href="~/Content/Login.css" rel="stylesheet" />
@@ -17,7 +18,7 @@
         <input type="text" name="Username" placeholder="Username" />
     </label>
     <label>
-        <input type="password" name="password" placeholder="Password" />
+        <input type="password" name="password" placeholder="Password " />
     </label>
     <a class="text-secondary text-decoration-none " href="@Url.Action("Forgot", "Login")">Hai dimenticato la password?</a>
     <button class="red mt-3" type="submit"> Log in</button>

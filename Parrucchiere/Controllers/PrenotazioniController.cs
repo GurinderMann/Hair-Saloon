@@ -82,9 +82,16 @@ namespace Parrucchiere.Controllers
                 {
                     Text =    f.DataInizio.ToShortDateString() + " - " + f.DataFine.ToShortDateString()
                 }).ToList();
-         
+
+            var orario = db.Orari.ToList()
+                .Select(o => new SelectListItem
+                {
+                    Value = o.Ora.ToString(),
+                    Text = o.Ora.ToString()
+                });
+
             ViewBag.Ferie = ferie;
-          
+            ViewBag.Orari = orario;
             ViewBag.TipoOptions = servizi;
             return View();
         }
@@ -109,7 +116,15 @@ namespace Parrucchiere.Controllers
                      Text = f.DataInizio.ToShortDateString() + " - " + f.DataFine.ToShortDateString()
                  }).ToList();
 
-          
+            var orario = db.Orari.ToList()
+               .Select(o => new SelectListItem
+               {
+                   Value = o.Ora.ToString(),
+                   Text = o.Ora.ToString()
+               });
+
+           
+            ViewBag.Orari = orario;
             ViewBag.Ferie = ferie;
             ViewBag.TipoOptions = servizi;
 
@@ -199,6 +214,21 @@ namespace Parrucchiere.Controllers
                 Text = s.Tipo
             }).ToList();
 
+            var orario = db.Orari.ToList()
+             .Select(o => new SelectListItem
+             {
+                 Value = o.Ora.ToString(),
+                 Text = o.Ora.ToString()
+             });
+
+            var ferie = db.Ferie.ToList()
+                .Select(f => new SelectListItem
+                {
+                    Text = f.DataInizio.ToShortDateString() + " - " + f.DataFine.ToShortDateString()
+                }).ToList();
+
+            ViewBag.Orari = orario;
+            ViewBag.Ferie = ferie;
             ViewBag.TipoOptions = servizi;
             var p = db.Prenotazioni.Find(id);
             return View(p);

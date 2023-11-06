@@ -1,0 +1,146 @@
+﻿@model IEnumerable<Parrucchiere.Models.Orari>
+@{
+    ViewBag.Title = "Orari";
+}
+
+
+<link href="~/Content/Lista.css" rel="stylesheet" />
+
+<div class="container">
+    <h2><strong>GESTIONE ORARI</strong></h2>
+    <div class="text-center my-3">
+        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Aggiungi un nuovo orario
+        </button>
+    </div>
+    <ul class="responsive-table text-center">
+        <li class="table-header">
+            <div class="col col-1"> Orario</div>
+           
+            <div class="col col-2">Modifica</div>
+            <div class="col col-3">Elimina</div>
+        </li>
+        @foreach (var o in Model)
+        {
+            <li class="table-row">
+                <div class="col col-1" data-label="Orario"> <strong> @o.Ora </strong></div>
+     
+
+
+                <div class="col col-2" data-label="Modifica">
+                   
+                        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal-@o.IdOrario">
+                            Modifica
+                        </button>
+                    
+                </div>
+                <div class="col col-3" data-label="Elimina">
+                    
+                        <a href="@Url.Action("EliminaOrario", new { id = o.IdOrario })" class="btn btn-danger">Elimina</a>
+                    
+                </div>
+
+            </li>
+        }
+    </ul>
+</div>
+
+@foreach (var o in Model)
+{
+    <div class="modal fade" id="editModal-@o.IdOrario" tabindex="-1" aria-labelledby="editModalLabel-@o.IdOrario" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-center">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel-@o.IdOrario">Modifica Orario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="editOra-@o.IdOrario">Ora:</label>
+                        <input type="text" class="form-control" id="editOra-@o.IdOrario" value="@o.Ora">
+                    </div>
+                    
+                    <button id="modificaOrario-@o.IdOrario" class="btn btn-primary mt-2">Salva Modifiche</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class=" modal-dialog modal-dialog-centere">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Aggiungi un periodo di ferie</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="dataInizio">Ora:</label>
+                    <input type="text" class="form-control" id="ora">
+                </div>
+               
+                <button id="creaFerieButton" class="btn btn-success mt-2">Crea Orario</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+    {
+    <script>
+        $(document).ready(function () {
+            $('#creaFerieButton').click(function () {
+                var ora = $('#ora').val();
+             
+
+                $.ajax({
+                    type: 'POST',
+                    url: "CreaOrario",
+                    data: { Ora : ora  },
+                    traditional: true,
+                    success: function (result) {
+                        location.reload();
+                    },
+                    error: function (error) {
+
+                    }
+                });
+            });
+         @foreach (var O in Model)
+            {
+                <text>$('#modificaOrario-@O.IdOrario').click(function () {
+                    var ora = $('#editOra-@O.IdOrario').val();
+                 
+
+                    $.ajax({
+                        type: 'POST',
+                        url: "EditOrario",
+                        data: {
+                            IdOrario: @O.IdOrario,
+                            Ora :  ora
+                        },
+                        traditional: true,
+                        success: function (result) {
+                            location.reload();
+                        },
+                        error: function (error) {
+
+                        }
+                    });
+                });</text>
+            }
+        });
+    </script>
+}

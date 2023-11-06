@@ -97,7 +97,14 @@ namespace Parrucchiere.Controllers
                 Value = s.IdServizio.ToString(),
                 Text = s.Tipo
             }).ToList();
+            var orario = db.Orari.ToList()
+            .Select(o => new SelectListItem
+            {
+                Value = o.Ora.ToString(),
+                Text = o.Ora.ToString()
+            });
 
+            ViewBag.Orari = orario;
             ViewBag.TipoOptions = servizi;
             var p= db.Prenotazioni.Find(id);
             return View(p);
@@ -126,7 +133,7 @@ namespace Parrucchiere.Controllers
 
                 db.SaveChanges();
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Prenotazioni");
             }
             return View(a);
         }
@@ -278,6 +285,51 @@ namespace Parrucchiere.Controllers
             return RedirectToAction("ListaServizi");
         }
 
+        public ActionResult Orari()
+        {
+            return View(db.Orari.ToList());
+        }
+        [HttpPost]
+        public ActionResult CreaOrario(  Orari o, DateTime Ora)
+        {
+            if (o != null)
+            {
+                TimeSpan newTime = Ora.TimeOfDay;
+                o.Ora = newTime;
+                db.Orari.Add(o);
+                db.SaveChanges();
+                return RedirectToAction("ferie");
+            }
+            return View();
+        }
+
+        //Post per modificare le ferie fatto con una chiamata AJAX
+        [HttpPost]
+        public ActionResult EditOrario(int IdOrario, DateTime Ora)
+        {
+            var o = db.Orari.Find(IdOrario);
+
+            if (o != null)
+            {
+                TimeSpan newTime = Ora.TimeOfDay;
+                o.Ora = newTime;
+                db.Entry(o).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Orari");
+            };
+
+            return View();
+
+        }
+
+        //Delete direttamente al click
+        public ActionResult EliminaOrario(int id)
+        {
+            Orari o = db.Orari.Find(id);
+            db.Orari.Remove(o);
+            db.SaveChanges();
+            return RedirectToAction("Orari");
+        }
 
 
     }

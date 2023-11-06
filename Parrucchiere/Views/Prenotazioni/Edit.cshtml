@@ -53,6 +53,19 @@
             <div class="form-horizontal  mx-5" id="crea">
 
 
+                <h3> Ferie :</h3>
+                <ul>
+                    @foreach (var ferie in ViewBag.Ferie as List<SelectListItem>)
+                    {
+
+                        <li>
+
+                            <p>@ferie.Text </p>
+                        </li>
+                    }
+
+                </ul>
+                <hr />
                 <h4 class="mb-3">Modifica appuntamento</h4>
                 <h5> Del :   @Model.Data</h5>
                 <hr />
@@ -64,25 +77,11 @@
                 <div class="form-group  ">
                     <label for="Ore" class="control-label col-md-2 w-100">Seleziona un orario:</label>
                     <div class="col-md-10">
-                        <select id="Ore" class="form-control ">
-                            <option value="09:00">09:00</option>
-                            <option value="09:30">09:30</option>
-                            <option value="10:00">10:00</option>
-                            <option value="10:30">10:30</option>
-                            <option value="11:00">11:00</option>
-                            <option value="11:30">11:30</option>
-                            <option value="12:00">12:00</option>
-                            <option value="12:30">12:30</option>
-                            <option value="14:00">14:00</option>
-                            <option value="14:30">14:30</option>
-                            <option value="15:00">15:00</option>
-                            <option value="15:30">15:30</option>
-                            <option value="16:00">16:00</option>
-                            <option value="16:30">16:30</option>
-                            <option value="17:00">17:00</option>
-                            <option value="17:30">17:30</option>
-
-                            <option value="18:00">18:00</option>
+                        <select id="Ore" class="form-control">
+                            @foreach (var item in ViewBag.Orari)
+                            {
+                                <option value="@item.Value">@item.Text</option>
+                            }
                         </select>
                     </div>
                 </div>
@@ -108,7 +107,7 @@
                 </div>
 
 
-               
+
 
 
 
@@ -120,7 +119,7 @@
                     </div>
                 </div>
             </div>
-           
+
 
         }
 
@@ -138,4 +137,4 @@
     @Scripts.Render("~/bundles/jqueryval")
     <script src="~/Scripts/Script.js"></script>
 
-    }
+}
