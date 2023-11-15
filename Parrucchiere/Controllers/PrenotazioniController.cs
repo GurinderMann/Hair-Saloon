@@ -89,7 +89,7 @@ namespace Parrucchiere.Controllers
                     Value = o.Ora.ToString(),
                     Text = o.Ora.ToString()
                 });
-
+           
             ViewBag.Ferie = ferie;
             ViewBag.Orari = orario;
             ViewBag.TipoOptions = servizi;
@@ -103,6 +103,7 @@ namespace Parrucchiere.Controllers
       
         public ActionResult Create(Prenotazioni a)
         {
+
             // Dropdown dei servizi disponibili
             var servizi = db.Servizi.Select(s => new SelectListItem
             {
@@ -128,6 +129,7 @@ namespace Parrucchiere.Controllers
             ViewBag.Ferie = ferie;
             ViewBag.TipoOptions = servizi;
 
+
             // Seleziono il servizio dal dropdown
             var servizioSelezionato = db.Servizi.FirstOrDefault(s => s.IdServizio == a.FkServizi);
 
@@ -142,8 +144,8 @@ namespace Parrucchiere.Controllers
                 {
                     bool orarioOccupato = db.Prenotazioni.Any(app =>
                    (app.Data <= a.Fine && app.Data >= a.Data) ||
-                   (app.Fine >= a.Data && app.Fine <= a.Fine)
-           );
+                   (app.Fine >= a.Data && app.Fine <= a.Fine));
+                    
 
                     // Recupero le ferie dal database
                     var fer = db.Ferie.ToList();
@@ -192,6 +194,7 @@ namespace Parrucchiere.Controllers
                 {
                     ModelState.AddModelError("Data", "L'orario selezionato non è valido, perfavore scegli un orario diverso.");
                 }
+
             }
 
            
