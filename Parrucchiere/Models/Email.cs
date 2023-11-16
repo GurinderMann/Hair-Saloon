@@ -9,6 +9,8 @@ namespace Parrucchiere.Models
 {
     public class Email
     {
+        // Inserire la password del redme qua dentro le virgolette
+        private string pass = "muyt nvwv uutm efeh";
 
         //Email informativa per la prenotazione andata a buon fine del appuntamento
         public void SendConfirmationEmail(string recipientEmail, Prenotazioni appointment)
@@ -17,7 +19,7 @@ namespace Parrucchiere.Models
             string smtpServer = "smtp.gmail.com";
             int smtpPort = 587;
             string smtpUsername = "parrucchiereg12@gmail.com";
-            string smtpPassword = "muyt nvwv uutm efeh";
+            string smtpPassword = pass;
 
             // Creo un nuovo smtp client
             using (var smtpClient = new SmtpClient())
@@ -62,7 +64,7 @@ namespace Parrucchiere.Models
             string smtpServer = "smtp.gmail.com";
             int smtpPort = 587;
             string smtpUsername = "parrucchiereg12@gmail.com";
-            string smtpPassword = "muyt nvwv uutm efeh";
+            string smtpPassword = pass;
 
           
             using (var smtpClient = new SmtpClient())
@@ -94,7 +96,7 @@ namespace Parrucchiere.Models
             string smtpServer = "smtp.gmail.com";
             int smtpPort = 587;
             string smtpUsername = "parrucchiereg12@gmail.com";
-            string smtpPassword = "muyt nvwv uutm efeh";
+            string smtpPassword = pass;
 
           
             using (var smtpClient = new SmtpClient())
@@ -120,44 +122,7 @@ namespace Parrucchiere.Models
         }
 
 
-        //Reminder il giorno prima del appuntamento
-        public void SendReminderEmail(string recipientEmail, Prenotazioni appointment)
-        {
-            // Calcola la data del promemoria (un giorno prima dell'appuntamento)
-            DateTime reminderDate = appointment.Data.AddDays(-1);
-
-            // Controlla se la data del promemoria è futura rispetto all'orario attuale
-            if (reminderDate > DateTime.Now)
-            {
-               
-                string smtpServer = "smtp.gmail.com";
-                int smtpPort = 587;
-                string smtpUsername = "parrucchiereg12@gmail.com";
-                string smtpPassword = "muyt nvwv uutm efeh";
-
-            
-                using (var smtpClient = new SmtpClient())
-                {
-                    smtpClient.Connect(smtpServer, smtpPort, false);
-                    smtpClient.Authenticate(smtpUsername, smtpPassword);
-
-                    var message = new MimeMessage();
-                    message.From.Add(new MailboxAddress("Magic Hair Saloon", smtpUsername));
-                    message.To.Add(new MailboxAddress("Recipient", recipientEmail));
-                    message.Subject = "Promemoria appuntamento";
-
-                    var body = new TextPart("plain")
-                    {
-                        Text = "Gentile cliente, le ricordiamo del suo appuntamento in data: " + appointment.Data
-                    };
-
-                    message.Body = body;
-
-                    smtpClient.Send(message);
-                    smtpClient.Disconnect(true);
-                }
-            }
-        }
+        
        
     }
 }
