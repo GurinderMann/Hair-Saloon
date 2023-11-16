@@ -8,18 +8,18 @@ using MailKit.Net.Smtp;
 namespace Parrucchiere.Models
 {
     public class Email
-    {
-        // Inserire la password del redme qua dentro le virgolette
-        private string pass = "muyt nvwv uutm efeh";
+    { 
 
+        public string smtpServer = "smtp.gmail.com";
+        public  int smtpPort = 587;
+        public string smtpUsername = "parrucchiereg12@gmail.com";
+
+       //Inserire qua dentro la password del Readme
+        public string smtpPassword = "muyt nvwv uutm efeh";
         //Email informativa per la prenotazione andata a buon fine del appuntamento
         public void SendConfirmationEmail(string recipientEmail, Prenotazioni appointment)
         {
-            // Configurazione smtp per gmail
-            string smtpServer = "smtp.gmail.com";
-            int smtpPort = 587;
-            string smtpUsername = "parrucchiereg12@gmail.com";
-            string smtpPassword = pass;
+           
 
             // Creo un nuovo smtp client
             using (var smtpClient = new SmtpClient())
@@ -61,11 +61,7 @@ namespace Parrucchiere.Models
         //Email informativa sulla modifica del appuntamento
         public void SendEditEmail(string recipientEmail, Prenotazioni appointment)
         {
-            string smtpServer = "smtp.gmail.com";
-            int smtpPort = 587;
-            string smtpUsername = "parrucchiereg12@gmail.com";
-            string smtpPassword = pass;
-
+         
           
             using (var smtpClient = new SmtpClient())
             {
@@ -93,10 +89,7 @@ namespace Parrucchiere.Models
         //Email informativa sulla cancellazione del appuntamento
         public void SendDeleteEmail(string recipientEmail, Prenotazioni appointment)
         {
-            string smtpServer = "smtp.gmail.com";
-            int smtpPort = 587;
-            string smtpUsername = "parrucchiereg12@gmail.com";
-            string smtpPassword = pass;
+
 
           
             using (var smtpClient = new SmtpClient())

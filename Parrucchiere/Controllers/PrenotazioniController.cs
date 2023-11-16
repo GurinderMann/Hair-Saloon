@@ -28,10 +28,7 @@ namespace Parrucchiere.Controllers
         }
 
         // Metodo per inviare il promemoria
-        private void SendReminderEmail(string recipientEmail, Prenotazioni appointment)
-        {
-            emailService.SendReminderEmail(recipientEmail, appointment);
-        }
+     
 
         //Metodo per inviare la cancellazione dell'appuntamento
         private void SendDeleteEmail(string recipientEmail, Prenotazioni appointment)
