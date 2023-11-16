@@ -15,7 +15,7 @@ namespace Parrucchiere.Models
         public string smtpUsername = "parrucchiereg12@gmail.com";
 
        //Inserire qua dentro la password del Readme
-        public string smtpPassword = "muyt nvwv uutm efeh";
+        public string smtpPassword = "";
         //Email informativa per la prenotazione andata a buon fine del appuntamento
         public void SendConfirmationEmail(string recipientEmail, Prenotazioni appointment)
         {
