@@ -33,3 +33,10 @@ Nella riga 18, inserisci la password specifica: "muyt nvwv uutm efeh".
 
 
 Ora il progetto è pronto per essere esplorato e personalizzato! Avvia l'applicazione e inizia a gestire le prenotazioni del tuo parrucchiere.
+
+
+BACKUP DEL DB
+- Cercare la cartella backup C:\Program Files\Microsoft SQL Server\MSSQL16.SQLEXPRESS\MSSQL\Backup
+- Nel progetto aprire la cartella nominata Database
+- Inserire dentro la cartella backup il file nominato Parrucchiere.bak che è localizzato nella cartella Database
+
