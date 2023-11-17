@@ -1,42 +1,38 @@
+Hair Salon Web Application
+This is a web application for managing hair salon appointments. It allows users to book appointments, view past and future reservations, and modify or cancel them.
 
-Parrucchiere Web Application
-Questa è un'applicazione web per la gestione delle prenotazioni di un parrucchiere. Permette agli utenti di prenotare appuntamenti, visualizzare le prenotazioni passate e future, modificarle o cancellarle.
+Technologies Used:
 
-Tecnologie Utilizzate
+- ASP.NET MVC: Framework for developing web applications based on the model-view-controller architecture.
+- Entity Framework: Object-Relational Mapping (ORM) to interact with the database.
+- C#: Object-oriented programming language used for application development.
+- MimeKit and MailKit: Libraries for handling and sending emails via SMTP.
+- HTML, CSS, JavaScript: Used for the front-end of the application.
+- Instructions for Cloning the Project:
 
-- ASP.NET MVC: Framework per lo sviluppo di applicazioni web basate su model-view-controller.
-- Entity Framework: ORM (Object-Relational Mapping) per interagire con il database.
-- C#: Linguaggio di programmazione orientato agli oggetti utilizzato per lo sviluppo dell'applicazione.
-- MimeKit e MailKit: Librerie per la gestione e l'invio di email tramite SMTP.
-- HTML, CSS, JavaScript: Utilizzati per la parte front-end dell'applicazione.
+Option 1: Clone Directly from GitHub
 
+1) Go to the GitHub repository page.
+2) Click on the "Code" button and choose "Open in Visual Studio."
 
-Istruzioni per il Clonare il Progetto
+Option 2: Download ZIP from GitHub
 
-Opzione 1: Clonare direttamente da GitHub
-1) Vai sulla pagina del repository su GitHub.
-2) Clicca sul pulsante "Code" e scegli "Open in Visual Studio".
-
-Opzione 2: Download del ZIP da GitHub
-1) Vai sulla pagina del repository su GitHub.
-2) Clicca sul pulsante "Code" e scegli "Download ZIP".
-3) Estrai il contenuto ZIP nella cartella desiderata.
-4) Entra nella cartella intitolata "Parrucchiere".
-5) Avvia il file "Parrucchiere.sln" con Visual Studio.
-
+1) Go to the GitHub repository page.
+2) Click on the "Code" button and choose "Download ZIP."
+3) Extract the ZIP content to the desired folder.
+4) Enter the folder titled "HairSalon."
+5) Launch the "HairSalon.sln" file with Visual Studio.
 
 
-IMPORTANTE
-Configurazione delle Credenziali Email 
-Prima di avviare il progetto, apri il file Email.cs nella cartella "Models".
-Nella riga 18, inserisci la password specifica: "muyt nvwv uutm efeh".
+IMPORTANT
+Email Credentials Configuration
+Before running the project, open the "Email.cs" file in the "Models" folder.
+On line 18, insert the specific password: "muyt nvwv uutm efeh."
 
+DATABASE BACKUP
 
-BACKUP DEL DB
-- Cercare la cartella backup C:\Program Files\Microsoft SQL Server\MSSQL16.SQLEXPRESS\MSSQL\Backup
-- Inserire dentro la cartella backup il file nominato Parrucchiere.bak 
+Locate the backup folder: C:\Program Files\Microsoft SQL Server\MSSQL16.SQLEXPRESS\MSSQL\Backup
+Place the file named "HairSalon.bak" inside the backup folder.
 
-
-Ora il progetto è pronto per essere esplorato e personalizzato! Avvia l'applicazione e inizia a gestire le prenotazioni del tuo parrucchiere.
-
+Now the project is ready to be explored and customized! Launch the application and start managing your hair salon reservations.
 
