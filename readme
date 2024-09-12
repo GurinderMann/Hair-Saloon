@@ -8,7 +8,9 @@ Technologies Used:
 - C#: Object-oriented programming language used for application development.
 - MimeKit and MailKit: Libraries for handling and sending emails via SMTP.
 - HTML, CSS, JavaScript: Used for the front-end of the application.
-- Instructions for Cloning the Project:
+
+
+Instructions for Cloning the Project:
 
 Option 1: Clone Directly from GitHub
 
